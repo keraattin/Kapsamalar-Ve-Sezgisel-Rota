@@ -22,7 +22,10 @@ namespace KapsamalarVeSezgiselRota
         private void AnaForm_Load(object sender, EventArgs e)
         {
             btn_islem_basla.Enabled = false;
+            btn_ilerle.Enabled = false;
             this.AcceptButton = btn_olustur;
+
+            
         }
 
         /*Olusturulan matrisin butun degerleri 0 a esitleniyor.*/
@@ -43,43 +46,11 @@ namespace KapsamalarVeSezgiselRota
 
         }
 
-        /*Sütun degerlerini hesaplama fonksiyonu*/
-        public void sutun_hesapla()
+        /*Satır ve sutunların ağırlıklarının hesaplandiği fonksiyon*/
+        public void agirlik_hesapla()
         {
-            /*Kac satır ve sutun olusturulacagı degiskenlere atandı.*/
-            int satir = Convert.ToInt32(txt_satir.Text);
-            int sutun = Convert.ToInt32(txt_sutun.Text);
-
-            int toplam = 0;
-            int i = 0;
-            int j = 0;
-
-            // MessageBox.Show("i = "+i.ToString()+"j = "+j.ToString()+"\n"+i.ToString() + ".satir " + j.ToString() + ".sutun = " + matris.Rows[j].Cells[i].Value.ToString());
-
-            for (i = 0; i < sutun; i++)
-            {
-                for (j = 0; j < satir; j++)
-                {
-                    /*j.satir i.sutun diyerek kolon tarama gerçeklestirildi.*/
-                    if (Convert.ToInt32(matris.Rows[j].Cells[i].Value) == 1) //j.satir i.sutun daki kutunun degeri 1 e esitmi kontrol edildi.
-                    {
-                        toplam++;  //Toplam 1 arttirildi.
-                        matris.Rows[j].Cells[i].Style = new DataGridViewCellStyle { BackColor = Color.Blue, ForeColor = Color.White }; //Degeri 1 olan kolonlara yeni stil eklendi.
-                    }
-                }
-                matris.Rows[satir].Cells[i].ReadOnly = true; //1 lerin sayisinin yazildigi sutun sadece okunabilir yapildi.
-                matris.Rows[satir].Cells[i].Style = new DataGridViewCellStyle { BackColor = Color.Red, ForeColor = Color.White }; //1 lerin yazıldıgı kolona yeni stil eklendi.
-                matris.Rows[satir].Cells[i].Value = toplam;  //1 lerin sayisi en alt sutunlara yazildi.
-                toplam = 0; //Toplam degiskeni diger degerlere bakabilmek icin sifirlandi.
-            }
-
-        }
-
-        public void satir_hesapla()
-        {
-            /*Kac satır ve sutun olusturulacagı degiskenlere atandı.*/
-            int satir = Convert.ToInt32(txt_satir.Text);
-            int sutun = Convert.ToInt32(txt_sutun.Text);
+            int satir = matris.Rows.Count - 1; //satir sayisi tutulan degisken tanimlandi.
+            int sutun = matris.Columns.Count - 1; //sutun sayisi tanimlandi.
 
             int[] sutun_dizisi = new int[sutun]; //Sutunlardaki 1 lerin tutulacagi dizi tanımlandı.
 
@@ -96,10 +67,14 @@ namespace KapsamalarVeSezgiselRota
                     if (Convert.ToInt32(matris.Rows[j].Cells[i].Value) == 1) //j.satir i.sutun daki kutunun degeri 1 e esitmi kontrol edildi.
                     {
                         toplam++;  //Toplam 1 arttirildi.
+                        matris.Rows[j].Cells[i].Style = new DataGridViewCellStyle { BackColor = Color.Blue, ForeColor = Color.White }; //Degeri 1 olan kolonlara yeni stil eklendi.
                     }
                 }
                 sutun_dizisi[i] = toplam; //Her sutunun degeri "sutun_dizisi" dizisine atildi.
-                toplam = 0;
+                matris.Rows[satir].Cells[i].ReadOnly = true; //1 lerin sayisinin yazildigi sutun sadece okunabilir yapildi.
+                matris.Rows[satir].Cells[i].Style = new DataGridViewCellStyle { BackColor = Color.Red, ForeColor = Color.White }; //1 lerin yazıldıgı kolona yeni stil eklendi.
+                matris.Rows[satir].Cells[i].Value = toplam;  //1 lerin sayisi en alt sutunlara yazildi.
+                toplam = 0; //Toplam degiskeni diger degerlere bakabilmek icin sifirlandi.
             }
 
             /*------------ Agırlık hesaplama || Satırların agırlinin hesaplanmasi -------------*/
@@ -125,7 +100,6 @@ namespace KapsamalarVeSezgiselRota
                 matris.Rows[a].Cells["agirlik"].Value = degerler_toplami; //Bulunan agırlık degeri "Agırlık" kolonuna yazdiriliyor.
                 degerler_toplami = 0; //Toplanan deger her seferinde bir sonraki asama icin sifirlaniyor.
             }
-
 
         }
 
@@ -175,10 +149,10 @@ namespace KapsamalarVeSezgiselRota
         /*Islemleri baslatan button*/
         private void btn_islem_basla_Click(object sender, EventArgs e)
         {
-            sutun_hesapla();
-            satir_hesapla();
+            agirlik_hesapla(); //Satır sutun agirliklari hesaplandi.
 
-            btn_islem_basla.Enabled = false;
+            btn_islem_basla.Enabled = false; //Isleme baslama butonu kapandi.
+            btn_ilerle.Enabled = true;  //Ilerleme butonu acildi.
         }
 
         /*En kucuk agirlikli satirin sirasi ve degerinin tutulacagi bir struct olusturuldu.*/
@@ -299,6 +273,7 @@ namespace KapsamalarVeSezgiselRota
         private void btn_ilerle_Click(object sender, EventArgs e)
         {
             rota_algoritmasi_ile_sil();
+            agirlik_hesapla();
             //satir_kapsamalarina_gore_sil();
         }
     }
