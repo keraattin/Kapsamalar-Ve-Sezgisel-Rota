@@ -307,13 +307,96 @@ namespace KapsamalarVeSezgiselRota
                 }
             }
 
+        }
+
+        public void sutun_kapsamalarina_gore_sil()
+        {
+            int satir = matris.Rows.Count - 1; //satir sayisi tutulan degisken tanimlandi.
+            int sutun = matris.Columns.Count - 1; //sutun sayisi tanimlandi.
+            int uyusmayan_bolum = 0;
+
+
+            /* (k,i) = 0,0 | 
+               (k,j) = 0,1 |  
+
+               (k,i) = 1,0 |
+               (k,j) = 1,1 |
+
+               (k,i) = 2,0 |
+               (k,j) = 2,1 |
+
+             Seklinde karsilastirma yapiliyor.*/
+            for (int i = 0; i < sutun; i++)
+            {
+                for (int j = i + 1; j < sutun; j++)
+                {
+                    for (int k = 0; k < satir; k++)
+                    {
+                        MessageBox.Show("k,i(" + k + " , " + i + ") = " + matris.Rows[k].Cells[i].Value + "\n" + " k,j(" + k + " ," + j + ") =" + matris.Rows[k].Cells[j].Value);
+                        if (Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[i].Value) == Convert.ToInt32(matris.Rows[k].Cells[j].Value))
+                        {
+                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + " ESITTTTTTT");
+                        }
+                        else if (Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 1)
+                        {
+                            uyusmayan_bolum++;
+                            break;
+                        }
+                    }
+                    if (uyusmayan_bolum == 0)
+                    {
+                        string sutun_adi = matris.Columns[j].Name; //Mutlak sutunun adi bulunuyor.
+                        matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
+
+                        lbl_durum.Text += "\nSutun kapsamalarina gore " + i + ". sutun " + j + ".sutun kapsadi \n" + "ve " + j + ".sutun silindi.";
+
+                        return; //Fonksiyonu bitir
+                    }
+                    uyusmayan_bolum = 0;
+                }
+            }
+
+
+            /*------------------- Tersten Karsilastirma Yapma -----------------------*/
+
+
+            for (int i = sutun - 1; i >= 0; i--)
+            {
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    for (int k = 0; k < satir; k++)
+                    {
+                        MessageBox.Show("k,i(" + k + " , " + i + ") = " + matris.Rows[k].Cells[i].Value + "\n" + " k,j(" + k + " ," + j + ") =" + matris.Rows[k].Cells[j].Value);
+                        if (Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[i].Value) == Convert.ToInt32(matris.Rows[k].Cells[j].Value))
+                        {
+                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + " ESITTTTTTT");
+                        }
+                        else if (Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 1)
+                        {
+                            uyusmayan_bolum++;
+                            break;
+                        }
+                    }
+                    if (uyusmayan_bolum == 0)
+                    {
+                        string sutun_adi = matris.Columns[j].Name; //Mutlak sutunun adi bulunuyor.
+                        matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
+
+                        lbl_durum.Text += "\nSutun kapsamalarina gore " + i + ". sutun " + j + ".sutun kapsadi \n" + "ve " + j + ".sutun silindi.";
+
+                        return; //Fonksiyonu bitir
+                    }
+                    uyusmayan_bolum = 0;
+                }
+            }
 
         }
 
         private void btn_ilerle_Click(object sender, EventArgs e)
         {
             //rota_algoritmasi_ile_sil();
-            mutlak_satir_sutun_bul_ve_sil();
+            //mutlak_satir_sutun_bul_ve_sil();
+            sutun_kapsamalarina_gore_sil();
             agirlik_hesapla();
             //satir_kapsamalarina_gore_sil();
         }
