@@ -23,9 +23,7 @@ namespace KapsamalarVeSezgiselRota
         {
             btn_islem_basla.Enabled = false;
             btn_ilerle.Enabled = false;
-            this.AcceptButton = btn_olustur;
-
-            
+            this.AcceptButton = btn_olustur;          
         }
 
         /*Olusturulan matrisin butun degerleri 0 a esitleniyor.*/
@@ -50,7 +48,7 @@ namespace KapsamalarVeSezgiselRota
         public void agirlik_hesapla()
         {
             int satir = matris.Rows.Count - 1; //satir sayisi tutulan degisken tanimlandi.
-            int sutun = matris.Columns.Count - 1; //sutun sayisi tanimlandi.
+            int sutun = matris.Columns.Count - 1; //sutun sayisi tutulan degsiken tanimlandi.
 
             int[] sutun_dizisi = new int[sutun]; //Sutunlardaki 1 lerin tutulacagi dizi tanımlandı.
 
@@ -100,6 +98,48 @@ namespace KapsamalarVeSezgiselRota
                 matris.Rows[a].Cells["agirlik"].Value = degerler_toplami; //Bulunan agırlık degeri "Agırlık" kolonuna yazdiriliyor.
                 degerler_toplami = 0; //Toplanan deger her seferinde bir sonraki asama icin sifirlaniyor.
             }
+
+        }
+
+        public void mutlak_satir_sutun_bul_ve_sil()
+        {
+            int satir = matris.Rows.Count - 1; //Satir sayisi tutulan degisken tanimlandi.
+            int sutun = matris.Columns.Count - 1; //Sutun sayisi tutulan degisken tanimlandi.
+
+            int mutlak_satir = 0;  //Mutlak satir degiskeni olusturuluyor.
+            int mutlak_sutun = 0;  //Mutlak sutun degiskeni olusturuluyor.
+
+            int bulundu = 0; //Mutlak satır oldugunu bulup bulmadigimizi kontrol etmek icin bulundu degiskeni olusturuluyor.
+
+            /*Agırlıkları 1 olan sutunlar bulunuyor.*/
+            for (int i = 0; i < sutun; i++)
+            {
+                if (Convert.ToInt32(matris.Rows[satir].Cells[i].Value) == 1) //Sutunun degeri 1'e esitmi kontrol ediliyor.
+                {
+                    mutlak_sutun = i; //Mutlak sutunun degeri i olarak degistiriliyor.
+                    bulundu++; //Bulundu degiskeni kontrol icin degeri arttirliyor.
+                    break;
+                }
+            }
+            if (bulundu == 0) //Mutlak sutun bulunamadiysa fonksiyondan cikiliyor.
+            {
+                MessageBox.Show("Mutlak sutun bulunamadi");
+                return; //Fonksiyondan cikiliyor.
+            }
+
+            /*Mutlak sutunun 1 oldugu satir araniyor.*/
+            for (int i = 0; i < satir; i++)
+            {
+                if (Convert.ToInt32(matris.Rows[i].Cells[mutlak_satir].Value) == 1) //Satir ve mutlak_sutun'un degeri 1'e esitmi kontrol ediliyor.
+                {
+                    mutlak_satir = i; //Mutlak satirin degeri i olarak degistiriliyor.
+                    break; 
+                }
+            }
+
+            string sutun_adi = matris.Columns[mutlak_sutun].Name; //Mutlak sutunun adi bulunuyor.
+            matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
+            matris.Rows.Remove(matris.Rows[mutlak_satir]); //Mutlak satir siliniyor.
 
         }
 
@@ -272,7 +312,8 @@ namespace KapsamalarVeSezgiselRota
 
         private void btn_ilerle_Click(object sender, EventArgs e)
         {
-            rota_algoritmasi_ile_sil();
+            //rota_algoritmasi_ile_sil();
+            mutlak_satir_sutun_bul_ve_sil();
             agirlik_hesapla();
             //satir_kapsamalarina_gore_sil();
         }
