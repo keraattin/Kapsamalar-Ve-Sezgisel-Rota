@@ -256,16 +256,13 @@ namespace KapsamalarVeSezgiselRota
                         MessageBox.Show("i,k(" + i + " , " + k + ") = " + matris.Rows[i].Cells[k].Value + "\n" + " j,k(" + j + " ," + k + ") =" + matris.Rows[j].Cells[k].Value);
                         if (Convert.ToInt32(matris.Rows[i].Cells[k].Value) == 1 && Convert.ToInt32(matris.Rows[j].Cells[k].Value) == 0)
                         {
-                            if (alt_kapsar > 0) //Alt tarafta onceden 1 elemanı bulunmusmu kontrol ediliyor. 
-                            {
-                                ust_kapsar++; //Kosullarda uyusmamazlık sağlamak icin ust_kapsar degiskeni arttirildi.
+                            ust_kapsar++; //Ust tarafta 1 alt tarafta 0 oldugu icin ust_kapsar degiskeni arttirildi.
+                            if (alt_kapsar > 0) //Alt tarafta onceden 1 elemanı bulunmusmu kontrol ediliyor.   
                                 break; //Alt tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
-                            }
-                            else //Daha onceden alt tarafta 1 elemanı bulunmadiysa devam ediliyor.
-                            {
-                                MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "ust kapsar");
-                                ust_kapsar++; //Ust taraf , alt tarafi kapsayacagi icin ust_kapsar degiskeni arttiriliyor.
-                            }
+
+                            /*Daha onceden alt tarafta 1 elemanı bulunmadiysa devam ediliyor.*/
+                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "ust kapsar");
+                            ust_kapsar++; //Ust taraf , alt tarafi kapsayacagi icin ust_kapsar degiskeni arttiriliyor.
                         }
                         else if (Convert.ToInt32(matris.Rows[j].Cells[k].Value) == 1 && Convert.ToInt32(matris.Rows[i].Cells[k].Value) == 1)
                         {
@@ -273,16 +270,13 @@ namespace KapsamalarVeSezgiselRota
                         }
                         else if (Convert.ToInt32(matris.Rows[j].Cells[k].Value) == 1 && Convert.ToInt32(matris.Rows[i].Cells[k].Value) == 0)
                         {
+                            alt_kapsar++; //Alt tarafta 1 ust tarafta 0 oldugu icin alt_kapsar degiskeni arttirildi.
                             if (ust_kapsar > 0) //Ust tarafta onceden 1 elemanı bulunmusmu kontrol ediliyor. 
-                            {
-                                alt_kapsar++; //Kosullarda uyusmamazlık sağlamak icin alt_kapsar degiskeni arttirildi.
                                 break; //Ust tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
-                            }
-                            else //Daha onceden ust tarafta 1 elemanı bulunmadiysa devam ediliyor.
-                            {
-                                MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "alt kapsar");
-                                alt_kapsar++; //Alt taraf , ust tarafi kapsayacagi icin alt_kapsar degiskeni arttiriliyor.
-                            }
+
+                            /*Daha onceden ust tarafta 1 elemanı bulunmadiysa devam ediliyor.*/
+                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "alt kapsar");
+                            alt_kapsar++; //Alt taraf , ust tarafi kapsayacagi icin alt_kapsar degiskeni arttiriliyor.
                         }
                     }
                     if (ust_kapsar > 0 && alt_kapsar == 0 || ust_kapsar == 0 && alt_kapsar == 0)
