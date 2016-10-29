@@ -313,7 +313,8 @@ namespace KapsamalarVeSezgiselRota
         {
             int satir = matris.Rows.Count - 1; //satir sayisi tutulan degisken tanimlandi.
             int sutun = matris.Columns.Count - 1; //sutun sayisi tanimlandi.
-            int uyusmayan_bolum = 0;
+            int sol_kapsar = 0;
+            int sag_kapsar = 0;
 
 
             /* (k,i) = 0,0 | 
@@ -333,17 +334,40 @@ namespace KapsamalarVeSezgiselRota
                     for (int k = 0; k < satir; k++)
                     {
                         MessageBox.Show("k,i(" + k + " , " + i + ") = " + matris.Rows[k].Cells[i].Value + "\n" + " k,j(" + k + " ," + j + ") =" + matris.Rows[k].Cells[j].Value);
-                        if (Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[i].Value) == Convert.ToInt32(matris.Rows[k].Cells[j].Value))
+                        if (Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 0)
                         {
-                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + " ESITTTTTTT");
+                            if(sag_kapsar > 0) //Sag tarafta onceden 1 elemanı bulunmusmu kontrol ediliyor. 
+                            {
+                                sol_kapsar++; //Kosullarda uyusmamazlık sağlamak icin sol_kapsar degiskeni arttirildi.
+                                break; //Sag tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
+                            }
+                            else //Daha onceden sag tarafta 1 elemanı bulunmadiysa devam ediliyor.
+                            {
+                                MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "sol kapsar");
+                                sol_kapsar++; // Sol taraf , sag tarafi kapsayacagi icin sol_kapsar degiskeni arttiriliyor.
+                            }
+
                         }
-                        else if (Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 1)
+                        else if (Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 1)
                         {
-                            uyusmayan_bolum++;
-                            break;
+                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + " esit");
+                        }
+                        else if (Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 0)
+                        {
+                            if (sol_kapsar > 0) //Sol tarafta daha onceden 1 elemanı bulunmusmu kontrol ediliyor.
+                            {
+                                sag_kapsar++; //Kosullarda uyusmamazlık sağlamak icin sag_kapsar degiskeni arttirildi.
+                                break; //Sol tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
+                            }
+                            else //Daha onceden sol tarafta 1 elemanı bulunmadiysa devam ediliyor.
+                            {
+                                MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "sag kapsar");
+                                sag_kapsar++; // Sag taraf , sol tarafi kapsayacagi icin sag_kapsar degiskeni arttiriliyor.
+                            }
+
                         }
                     }
-                    if (uyusmayan_bolum == 0)
+                    if (sol_kapsar > 0 && sag_kapsar == 0 || (sol_kapsar == 0 && sag_kapsar == 0))
                     {
                         string sutun_adi = matris.Columns[j].Name; //Mutlak sutunun adi bulunuyor.
                         matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
@@ -352,41 +376,23 @@ namespace KapsamalarVeSezgiselRota
 
                         return; //Fonksiyonu bitir
                     }
-                    uyusmayan_bolum = 0;
-                }
-            }
-
-
-            /*------------------- Tersten Karsilastirma Yapma -----------------------*/
-
-
-            for (int i = sutun - 1; i >= 0; i--)
-            {
-                for (int j = i - 1; j >= 0; j--)
-                {
-                    for (int k = 0; k < satir; k++)
+                    else if (sag_kapsar > 0 && sol_kapsar == 0)
                     {
-                        MessageBox.Show("k,i(" + k + " , " + i + ") = " + matris.Rows[k].Cells[i].Value + "\n" + " k,j(" + k + " ," + j + ") =" + matris.Rows[k].Cells[j].Value);
-                        if (Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[i].Value) == Convert.ToInt32(matris.Rows[k].Cells[j].Value))
-                        {
-                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + " ESITTTTTTT");
-                        }
-                        else if (Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 1)
-                        {
-                            uyusmayan_bolum++;
-                            break;
-                        }
-                    }
-                    if (uyusmayan_bolum == 0)
-                    {
-                        string sutun_adi = matris.Columns[j].Name; //Mutlak sutunun adi bulunuyor.
+                        string sutun_adi = matris.Columns[i].Name; //Mutlak sutunun adi bulunuyor.
                         matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
 
-                        lbl_durum.Text += "\nSutun kapsamalarina gore " + i + ". sutun " + j + ".sutun kapsadi \n" + "ve " + j + ".sutun silindi.";
+                        lbl_durum.Text += "\nSutun kapsamalarina gore " + j + ". sutun " + i + ".sutun kapsadi \n" + "ve " + i + ".sutun silindi.";
 
                         return; //Fonksiyonu bitir
                     }
-                    uyusmayan_bolum = 0;
+                    else
+                    {
+                        MessageBox.Show("Kapsama yoktur");
+                        sag_kapsar = 0; //Degiskenler bir sonraki kontroller icin 0 laniyor.
+                        sol_kapsar = 0; //Degiskenler bir sonraki kontroller icin 0 laniyor.
+                    }
+                    sag_kapsar = 0; //Degiskenler bir sonraki kontroller icin 0 laniyor.
+                    sol_kapsar = 0; //Degiskenler bir sonraki kontroller icin 0 laniyor.
                 }
             }
 
