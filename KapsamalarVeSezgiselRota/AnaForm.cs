@@ -237,7 +237,8 @@ namespace KapsamalarVeSezgiselRota
         {
             int satir = matris.Rows.Count - 1; //satir sayisi tutulan degisken tanimlandi.
             int sutun = matris.Columns.Count - 1; //sutun sayisi tanimlandi.
-            int uyusmayan_bolum = 0;
+            int ust_kapsar = 0;
+            int alt_kapsar = 0;
 
             /* (i,j) = 0,0 | 0,1 | 0,2
                (k,j) = 1,0 | 1,1 | 1,2  
@@ -253,17 +254,38 @@ namespace KapsamalarVeSezgiselRota
                     for (int k = 0; k < sutun; k++)
                     {
                         MessageBox.Show("i,k(" + i + " , " + k + ") = " + matris.Rows[i].Cells[k].Value + "\n" + " j,k(" + j + " ," + k + ") =" + matris.Rows[j].Cells[k].Value);
-                        /*Kapsayacak satirin sutununun degeri 1 mi ve Kapsanan satir'in sutunu ile degeri ayni mi kontrol ediliyor.*/
-                        if (Convert.ToInt32(matris.Rows[i].Cells[k].Value) == 1 && Convert.ToInt32(matris.Rows[i].Cells[k].Value) == Convert.ToInt32(matris.Rows[j].Cells[k].Value))
+                        if (Convert.ToInt32(matris.Rows[i].Cells[k].Value) == 1 && Convert.ToInt32(matris.Rows[j].Cells[k].Value) == 0)
                         {
-                            MessageBox.Show(matris.Rows[i].Cells[k].Value + "\n" + matris.Rows[j].Cells[k].Value + " ESITTTTTTT");
+                            if (alt_kapsar > 0) //Alt tarafta onceden 1 elemanı bulunmusmu kontrol ediliyor. 
+                            {
+                                ust_kapsar++; //Kosullarda uyusmamazlık sağlamak icin ust_kapsar degiskeni arttirildi.
+                                break; //Alt tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
+                            }
+                            else //Daha onceden alt tarafta 1 elemanı bulunmadiysa devam ediliyor.
+                            {
+                                MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "ust kapsar");
+                                ust_kapsar++; //Ust taraf , alt tarafi kapsayacagi icin ust_kapsar degiskeni arttiriliyor.
+                            }
                         }
-                        else if (Convert.ToInt32(matris.Rows[j].Cells[k].Value) == 1)
+                        else if (Convert.ToInt32(matris.Rows[j].Cells[k].Value) == 1 && Convert.ToInt32(matris.Rows[i].Cells[k].Value) == 1)
                         {
-                            uyusmayan_bolum++;
+                            MessageBox.Show(matris.Rows[i].Cells[k].Value + "\n" + matris.Rows[j].Cells[k].Value + "Esit");
+                        }
+                        else if (Convert.ToInt32(matris.Rows[j].Cells[k].Value) == 1 && Convert.ToInt32(matris.Rows[i].Cells[k].Value) == 0)
+                        {
+                            if (ust_kapsar > 0) //Ust tarafta onceden 1 elemanı bulunmusmu kontrol ediliyor. 
+                            {
+                                alt_kapsar++; //Kosullarda uyusmamazlık sağlamak icin alt_kapsar degiskeni arttirildi.
+                                break; //Ust tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
+                            }
+                            else //Daha onceden ust tarafta 1 elemanı bulunmadiysa devam ediliyor.
+                            {
+                                MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "alt kapsar");
+                                alt_kapsar++; //Alt taraf , ust tarafi kapsayacagi icin alt_kapsar degiskeni arttiriliyor.
+                            }
                         }
                     }
-                    if (uyusmayan_bolum == 0)
+                    if (ust_kapsar > 0 && alt_kapsar == 0 || ust_kapsar == 0 && alt_kapsar == 0)
                     {
                         DataGridViewRow silinecek_satir = matris.Rows[j]; //Silinecek satir belirleniyor.
                         matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
@@ -272,38 +294,23 @@ namespace KapsamalarVeSezgiselRota
 
                         return; //Fonksiyonu bitir
                     }
-                    uyusmayan_bolum = 0;
-                }
-            }
-            /*------------------- Tersten Karsilastirma Yapma -----------------------*/
-
-            for (int i = satir - 1; i >= 0; i--)
-            {
-                for (int j = i - 1; j >= 0; j--)
-                {
-                    for (int k = 0; k < sutun; k++)
+                    else if (alt_kapsar > 0 && ust_kapsar == 0)
                     {
-                        MessageBox.Show("i,k(" + i + " , " + k + ") = " + matris.Rows[i].Cells[k].Value + "\n" + " j,k(" + j + " ," + k + ") =" + matris.Rows[j].Cells[k].Value);
-                        /*Kapsayacak satirin sutununun degeri 1 mi ve Kapsanan satir'in sutunu ile degeri ayni mi kontrol ediliyor.*/
-                        if (Convert.ToInt32(matris.Rows[i].Cells[k].Value) == 1 && Convert.ToInt32(matris.Rows[i].Cells[k].Value) == Convert.ToInt32(matris.Rows[j].Cells[k].Value))
-                        {
-                            MessageBox.Show(matris.Rows[i].Cells[k].Value + "\n" + matris.Rows[j].Cells[k].Value + " ESITTTTTTT");
-                        }
-                        else if (Convert.ToInt32(matris.Rows[j].Cells[k].Value) == 1)
-                        {
-                            uyusmayan_bolum++;
-                        }
-                    }
-                    if (uyusmayan_bolum == 0)
-                    {
-                        DataGridViewRow silinecek_satir = matris.Rows[j]; //Silinecek satir belirleniyor.
+                        DataGridViewRow silinecek_satir = matris.Rows[i]; //Silinecek satir belirleniyor.
                         matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
 
-                        lbl_durum.Text += "\nSatir kapsamalarina gore " + i + ". satir " + j + ".satiri kapsadi \n" + "ve " + j + ".satir silindi.";
+                        lbl_durum.Text += "\nSatir kapsamalarina gore " + j + ". satir " + i + ".satiri kapsadi \n" + "ve " + i + ".satir silindi.";
 
                         return; //Fonksiyonu bitir
                     }
-                    uyusmayan_bolum = 0;
+                    else
+                    {
+                        MessageBox.Show("Kapsama yoktur");
+                        alt_kapsar = 0;
+                        ust_kapsar = 0;
+                    }
+                    alt_kapsar = 0;
+                    ust_kapsar = 0;
                 }
             }
 
@@ -402,9 +409,9 @@ namespace KapsamalarVeSezgiselRota
         {
             //rota_algoritmasi_ile_sil();
             //mutlak_satir_sutun_bul_ve_sil();
-            sutun_kapsamalarina_gore_sil();
+            //sutun_kapsamalarina_gore_sil();
+            satir_kapsamalarina_gore_sil();
             agirlik_hesapla();
-            //satir_kapsamalarina_gore_sil();
         }
     }
 }
