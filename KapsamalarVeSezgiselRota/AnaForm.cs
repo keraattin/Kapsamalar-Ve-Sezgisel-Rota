@@ -337,17 +337,13 @@ namespace KapsamalarVeSezgiselRota
                         MessageBox.Show("k,i(" + k + " , " + i + ") = " + matris.Rows[k].Cells[i].Value + "\n" + " k,j(" + k + " ," + j + ") =" + matris.Rows[k].Cells[j].Value);
                         if (Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 0)
                         {
-                            if(sag_kapsar > 0) //Sag tarafta onceden 1 elemanı bulunmusmu kontrol ediliyor. 
-                            {
-                                sol_kapsar++; //Kosullarda uyusmamazlık sağlamak icin sol_kapsar degiskeni arttirildi.
+                            sol_kapsar++; //Sol tarafta 1 sag tarafta 0 oldugu icin sol_kapsar degiskeni arttirildi.
+                            if (sag_kapsar > 0) //Sag tarafta onceden 1 elemanı bulunmusmu kontrol ediliyor. 
                                 break; //Sag tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
-                            }
-                            else //Daha onceden sag tarafta 1 elemanı bulunmadiysa devam ediliyor.
-                            {
-                                MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "sol kapsar");
-                                sol_kapsar++; // Sol taraf , sag tarafi kapsayacagi icin sol_kapsar degiskeni arttiriliyor.
-                            }
 
+                            /*Daha onceden sag tarafta 1 elemanı bulunmadiysa devam ediliyor.*/
+                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "sol kapsar");
+                            sol_kapsar++; // Sol taraf , sag tarafi kapsayacagi icin sol_kapsar degiskeni arttiriliyor.
                         }
                         else if (Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 1)
                         {
@@ -355,17 +351,13 @@ namespace KapsamalarVeSezgiselRota
                         }
                         else if (Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 0)
                         {
-                            if (sol_kapsar > 0) //Sol tarafta daha onceden 1 elemanı bulunmusmu kontrol ediliyor.
-                            {
-                                sag_kapsar++; //Kosullarda uyusmamazlık sağlamak icin sag_kapsar degiskeni arttirildi.
-                                break; //Sol tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
-                            }
-                            else //Daha onceden sol tarafta 1 elemanı bulunmadiysa devam ediliyor.
-                            {
-                                MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "sag kapsar");
-                                sag_kapsar++; // Sag taraf , sol tarafi kapsayacagi icin sag_kapsar degiskeni arttiriliyor.
-                            }
+                            sag_kapsar++; //Sag tarafta 1 sol tarafta 0 oldugu icin sag_kapsar degiskeni arttirildi.
+                            if (sol_kapsar > 0) //Sol tarafta daha onceden 1 elemanı bulunmusmu kontrol ediliyor. 
+                                break; //Sol tarafta onceden 1 elemanı bulunmussa kapsama yoktur
 
+                            /*Daha onceden sol tarafta 1 elemanı bulunmadiysa devam ediliyor.*/
+                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "sag kapsar");
+                            sag_kapsar++; // Sag taraf , sol tarafi kapsayacagi icin sag_kapsar degiskeni arttiriliyor.
                         }
                     }
                     if (sol_kapsar > 0 && sag_kapsar == 0 || (sol_kapsar == 0 && sag_kapsar == 0))
@@ -403,8 +395,8 @@ namespace KapsamalarVeSezgiselRota
         {
             //rota_algoritmasi_ile_sil();
             //mutlak_satir_sutun_bul_ve_sil();
-            //sutun_kapsamalarina_gore_sil();
-            satir_kapsamalarina_gore_sil();
+            sutun_kapsamalarina_gore_sil();
+            //satir_kapsamalarina_gore_sil();
             agirlik_hesapla();
         }
     }
