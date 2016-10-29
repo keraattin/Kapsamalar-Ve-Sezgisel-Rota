@@ -19,11 +19,46 @@ namespace KapsamalarVeSezgiselRota
 
         public DataGridView matris = new DataGridView();  //Matris icin datagridview olusturuldu.
 
+        public DataGridView matris2 = new DataGridView();  //Matris icin datagridview olusturuldu.
+
         private void AnaForm_Load(object sender, EventArgs e)
         {
             btn_islem_basla.Enabled = false;
             btn_ilerle.Enabled = false;
             this.AcceptButton = btn_olustur;          
+        }
+
+        public void matris_olustur(int satir,int sutun,int x,int y,DataGridView matris)
+        {
+            /*Matrise "sutun" degiskeni kadar sutun ekleniyor.*/
+            for (int i = 0; i < sutun; i++)
+            {
+                matris.Columns.Add("x" + i.ToString() + "", "x" + i.ToString() + ""); //Sutun ekleme.
+                matris.Columns[i].Width = 30; //Eklenen sütunun genisliğini ayarlandı.
+                matris.Columns[i].Resizable = DataGridViewTriState.False; //Kolonların genişliği değiştirilemez olarak ayarlandi.
+            }
+
+            matris.Columns.Add("agirlik", "Ağırlık"); //Ağırlık sütununu ekleme.
+            matris.Columns["agirlik"].ReadOnly = true; //Ağırlık sütunu üzerinde değişiklik yapma engellendi.
+            matris.Columns["agirlik"].Width = 50; //Ağırlık sütununun genişliği ayarlandı.
+            matris.Columns["agirlik"].Resizable = DataGridViewTriState.False; //Ağırlık sütunun genişliği değiştilemez olarak ayarlandi.
+
+            /*Matrise "satir" degiskeni kadar satır ekleniyor.*/
+            for (int j = 0; j < satir; j++)
+            {
+                matris.Rows.Add(); //Satir ekleme.
+                matris.Rows[j].Height = 20;
+            }
+            matris.Rows.Add(); //Ağırlık satiri ekleniyor.
+
+            ilk_deger_ata(); //Matris'in tüm satır ve sütunlarına ilk degerleri atanıyor.
+
+            matris.RowHeadersVisible = false; //Matrisin satir headerlari gizleniyor.
+            matris.AllowUserToAddRows = false; //Matrise kullanicilarin satir eklemesi engelleniyor.
+            matris.Size = new Size((30*sutun)+56,(20*satir)+48);  //Matris'in boyutu belirleniyor.
+            matris.Location = new Point(x, y);            //Matris'in lokasyonu belirleniyor.
+            matris.Visible = true;                        //Matris'in görünürlüğü aciliyor.
+            this.Controls.Add(matris);                    //Matris pencereye ekleniyor.
         }
 
         /*Olusturulan matrisin butun degerleri 0 a esitleniyor.*/
@@ -151,33 +186,9 @@ namespace KapsamalarVeSezgiselRota
             int satir = Convert.ToInt32(txt_satir.Text);
             int sutun = Convert.ToInt32(txt_sutun.Text);
 
-            /*Matrise "sutun" degiskeni kadar sutun ekleniyor.*/
-            for (int i = 0; i < sutun; i++)
-            {
-                matris.Columns.Add("x" + i.ToString() + "", "x" + i.ToString() + ""); //Sutun ekleme.
-                matris.Columns[i].Width = 30; //Eklenen sütunun genisliğini ayarlandı.
-                matris.Columns[i].Resizable = DataGridViewTriState.False; //Kolonların genişliği değiştirilemez olarak ayarlandi.
-            }
-
-            matris.Columns.Add("agirlik", "Ağırlık"); //Ağırlık sütununu ekleme.
-            matris.Columns["agirlik"].ReadOnly = true; //Ağırlık sütunu üzerinde değişiklik yapma engellendi.
-            matris.Columns["agirlik"].Width = 50; //Ağırlık sütununun genişliği ayarlandı.
-            matris.Columns["agirlik"].Resizable = DataGridViewTriState.False; //Ağırlık sütunun genişliği değiştilemez olarak ayarlandi.
-
-            /*Matrise "satir" degiskeni kadar satır ekleniyor.*/
-            for (int j = 0; j < satir; j++)
-            {
-                matris.Rows.Add(); //Satir ekleme.
-            }
-            matris.Rows.Add(); //Ağırlık satiri ekleniyor.
-
-            ilk_deger_ata(); //Matris'in tüm satır ve sütunlarına ilk degerleri atanıyor.
-
-            matris.AllowUserToAddRows = false;
-            matris.Size = new Size((36 * sutun) + 80, (36 * satir));  //Matris'in boyutu belirleniyor.
-            matris.Location = new Point(20, 80);          //Matris'in lokasyonu belirleniyor.
-            matris.Visible = true;                        //Matris'in görünürlüğü aciliyor.
-            this.Controls.Add(matris);                    //Matris pencereye ekleniyor.
+            matris_olustur(satir, sutun, 20, 80, matris); //Matris olusturma fonksiyonu cagirilip 1.Matris olusturuluyor.
+            int x = matris.Width; //1.Matrisin genislik degeri bulunuyorç
+            matris_olustur(satir, sutun, x+40, 80, matris2); //Matris olusturma fonksiyonu cagirilip 2.Matris olusturuluyor.
 
             txt_satir.Enabled = false;                    //Satır girisi kapatiliyor.
             txt_sutun.Enabled = false;                    //Sutun girisi kapatiliyor.

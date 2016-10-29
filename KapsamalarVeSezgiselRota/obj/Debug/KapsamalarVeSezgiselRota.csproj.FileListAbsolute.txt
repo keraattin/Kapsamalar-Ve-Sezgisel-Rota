@@ -1,9 +1,8 @@
-c:\users\admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\bin\Debug\KapsamalarVeSezgiselRota.exe.config
-c:\users\admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.csprojResolveAssemblyReference.cache
-c:\users\admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.Properties.Resources.resources
-c:\users\admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.csproj.GenerateResource.Cache
-c:\users\admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\bin\Debug\KapsamalarVeSezgiselRota.exe
-c:\users\admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\bin\Debug\KapsamalarVeSezgiselRota.pdb
-c:\users\admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.AnaForm.resources
-c:\users\admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.exe
-c:\users\admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.pdb
+C:\Users\Admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\bin\Debug\KapsamalarVeSezgiselRota.exe.config
+C:\Users\Admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\bin\Debug\KapsamalarVeSezgiselRota.exe
+C:\Users\Admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\bin\Debug\KapsamalarVeSezgiselRota.pdb
+C:\Users\Admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.AnaForm.resources
+C:\Users\Admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.Properties.Resources.resources
+C:\Users\Admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.csproj.GenerateResource.Cache
+C:\Users\Admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.exe
+C:\Users\Admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.pdb
