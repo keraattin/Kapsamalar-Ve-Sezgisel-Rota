@@ -303,7 +303,7 @@ namespace KapsamalarVeSezgiselRota
                         islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                         rtb.Text += "\n"+islem_sayisi+" => Satir kapsamalarina gore " + i + ". satir " + j + ".satiri kapsadi \n" + "ve " + j + ".satir silindi.";
 
-                        return 1; //Fonksiyonu bitir.
+                        return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                     }
                     else if (alt_kapsar > 0 && ust_kapsar == 0)
                     {
@@ -313,7 +313,7 @@ namespace KapsamalarVeSezgiselRota
                         islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                         rtb.Text += "\n"+islem_sayisi+" => Satir kapsamalarina gore " + j + ". satir " + i + ".satiri kapsadi \n" + "ve " + i + ".satir silindi.";
 
-                        return 1; //Fonksiyonu bitir.
+                        return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                     }
                     else //Kapsama yoktur.
                     {
@@ -381,7 +381,7 @@ namespace KapsamalarVeSezgiselRota
                         islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                         rtb.Text += "\n" + islem_sayisi + " => Sutun kapsamalarina gore " + i + ". sutun " + j + ".sutun kapsadi \n" + "ve " + j + ".sutun silindi.\n";
 
-                        return 1; //Fonksiyonu bitir.
+                        return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                     }
                     else if (sag_kapsar > 0 && sol_kapsar == 0)
                     {
@@ -391,7 +391,7 @@ namespace KapsamalarVeSezgiselRota
                         islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                         rtb.Text += "\n"+islem_sayisi+" => Sutun kapsamalarina gore " + j + ". sutun " + i + ".sutun kapsadi \n" + "ve " + i + ".sutun silindi.\n";
 
-                        return 1; //Fonksiyonu bitir.
+                        return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                     }
                     else //Kapsama yoktur.
                     {
@@ -406,35 +406,45 @@ namespace KapsamalarVeSezgiselRota
         }
 
         /*Mutlak sutun , Satir kapsamasi , Sutun kapsamasi , Rota algoritmasi islemlerinin yapilmasi*/
-        public void islem_yap(DataGridView matris)
+        public int islem_yap(DataGridView matris)
         {
-            if (mutlak_satir_sutun_bul_ve_sil(matris) == 0)
+            if ((matris.Rows.Count-1) < 2 || (matris.Columns.Count-1) < 2) //Islemler bitmismi kontrol ediliyor.
             {
-                rtb.Text += "\nMutlak sutun bulunamadi ";
-                if (satir_kapsamalarina_gore_sil(matris) == 0)
+                rtb.Text += "\n\n ISLEM SONLANDI \n\n";
+                return 0; //Islem sonlandigi ve bir daha islem yapmayacagi icin 0 donduruyor.
+            }
+            else
+            {
+                if (mutlak_satir_sutun_bul_ve_sil(matris) == 0)
                 {
-                    rtb.Text += " , Kapsanan satir bulunamadi ";
-                    if (sutun_kapsamalarina_gore_sil(matris) == 0)
+                    rtb.Text += "\nMutlak sutun bulunamadi ";
+                    if (satir_kapsamalarina_gore_sil(matris) == 0)
                     {
-                        rtb.Text += " , Kapsanan sutun bulunamadi ";
-                        rota_algoritmasi_ile_sil(matris); //Hicbir fonksiyon calismadiysa rota algoritmasina gore en dusuk agirligi olan satir siliniyor.
+                        rtb.Text += " , Kapsanan satir bulunamadi ";
+                        if (sutun_kapsamalarina_gore_sil(matris) == 0)
+                        {
+                            rtb.Text += " , Kapsanan sutun bulunamadi ";
+                            rota_algoritmasi_ile_sil(matris); //Hicbir fonksiyon calismadiysa rota algoritmasina gore en dusuk agirligi olan satir siliniyor.
+                            return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
+                        }
+                        else
+                        {
+                            return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
+                        }
                     }
                     else
                     {
-                        return;
+                        return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                     }
                 }
                 else
                 {
-                    return;
+                    rtb.Text += "\n" + islem_sayisi + " => Mutlak sutun bulundu , satir ve sutun silindi.\n";
+                    islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
+                    return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                 }
             }
-            else
-            {
-                rtb.Text += "\n"+islem_sayisi+" => Mutlak sutun bulundu , satir ve sutun silindi.\n";
-                islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
-                return;
-            }
+            
         }
 
         /*-------------------------- Eventler --------------------------*/
@@ -489,10 +499,13 @@ namespace KapsamalarVeSezgiselRota
 
         private void btn_ilerle_Click(object sender, EventArgs e)
         {
-            islem_yap(matris1);
-            islem_yap(matris2);
-            agirlik_hesapla(matris1);
-            agirlik_hesapla(matris2);
+            if (islem_yap(matris2) == 1) //2.Matriste sonuc bulunmamis ise diger matriste islem yapiliyor.
+            {
+                agirlik_hesapla(matris2);
+                islem_yap(matris1);
+                agirlik_hesapla(matris1);
+            }
+
         }
     }
 }
