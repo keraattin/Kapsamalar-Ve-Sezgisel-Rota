@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbl_durum = new System.Windows.Forms.Label();
             this.btn_ilerle = new System.Windows.Forms.Button();
             this.btn_islem_basla = new System.Windows.Forms.Button();
             this.lbl_sutun = new System.Windows.Forms.Label();
@@ -39,20 +38,13 @@
             this.grb_baslangic = new System.Windows.Forms.GroupBox();
             this.rd_el_ile = new System.Windows.Forms.RadioButton();
             this.rd_random = new System.Windows.Forms.RadioButton();
+            this.chk_rota = new System.Windows.Forms.CheckBox();
             this.grb_baslangic.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lbl_durum
-            // 
-            this.lbl_durum.AutoSize = true;
-            this.lbl_durum.Location = new System.Drawing.Point(583, 21);
-            this.lbl_durum.Name = "lbl_durum";
-            this.lbl_durum.Size = new System.Drawing.Size(0, 17);
-            this.lbl_durum.TabIndex = 15;
-            // 
             // btn_ilerle
             // 
-            this.btn_ilerle.Location = new System.Drawing.Point(459, 23);
+            this.btn_ilerle.Location = new System.Drawing.Point(440, 23);
             this.btn_ilerle.Name = "btn_ilerle";
             this.btn_ilerle.Size = new System.Drawing.Size(75, 50);
             this.btn_ilerle.TabIndex = 14;
@@ -106,7 +98,7 @@
             // 
             // btn_olustur
             // 
-            this.btn_olustur.Location = new System.Drawing.Point(265, 23);
+            this.btn_olustur.Location = new System.Drawing.Point(271, 23);
             this.btn_olustur.Name = "btn_olustur";
             this.btn_olustur.Size = new System.Drawing.Size(73, 50);
             this.btn_olustur.TabIndex = 8;
@@ -116,6 +108,7 @@
             // 
             // grb_baslangic
             // 
+            this.grb_baslangic.Controls.Add(this.chk_rota);
             this.grb_baslangic.Controls.Add(this.rd_random);
             this.grb_baslangic.Controls.Add(this.rd_el_ile);
             this.grb_baslangic.Controls.Add(this.txt_sutun);
@@ -125,7 +118,7 @@
             this.grb_baslangic.Controls.Add(this.btn_olustur);
             this.grb_baslangic.Location = new System.Drawing.Point(3, 0);
             this.grb_baslangic.Name = "grb_baslangic";
-            this.grb_baslangic.Size = new System.Drawing.Size(350, 84);
+            this.grb_baslangic.Size = new System.Drawing.Size(350, 96);
             this.grb_baslangic.TabIndex = 16;
             this.grb_baslangic.TabStop = false;
             this.grb_baslangic.Text = "Başlangıç";
@@ -152,13 +145,22 @@
             this.rd_random.Text = "Random atansın";
             this.rd_random.UseVisualStyleBackColor = true;
             // 
+            // chk_rota
+            // 
+            this.chk_rota.AutoSize = true;
+            this.chk_rota.Location = new System.Drawing.Point(117, 72);
+            this.chk_rota.Name = "chk_rota";
+            this.chk_rota.Size = new System.Drawing.Size(148, 21);
+            this.chk_rota.TabIndex = 15;
+            this.chk_rota.Text = "Sadece rota kullan";
+            this.chk_rota.UseVisualStyleBackColor = true;
+            // 
             // AnaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1109, 700);
             this.Controls.Add(this.grb_baslangic);
-            this.Controls.Add(this.lbl_durum);
             this.Controls.Add(this.btn_ilerle);
             this.Controls.Add(this.btn_islem_basla);
             this.Name = "AnaForm";
@@ -167,13 +169,10 @@
             this.grb_baslangic.ResumeLayout(false);
             this.grb_baslangic.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label lbl_durum;
         private System.Windows.Forms.Button btn_ilerle;
         private System.Windows.Forms.Button btn_islem_basla;
         private System.Windows.Forms.Label lbl_sutun;
@@ -184,5 +183,6 @@
         private System.Windows.Forms.GroupBox grb_baslangic;
         private System.Windows.Forms.RadioButton rd_random;
         private System.Windows.Forms.RadioButton rd_el_ile;
+        private System.Windows.Forms.CheckBox chk_rota;
     }
 }

@@ -53,10 +53,13 @@ namespace KapsamalarVeSezgiselRota
             {
                 matris.Rows.Add(); //Satir ekleme.
                 matris.Rows[j].Height = 20;
+                //matris.Rows[j].HeaderCell.Value = "y" + j; 
             }
             matris.Rows.Add(); //Ağırlık satiri ekleniyor.
 
             matris.RowHeadersVisible = false; //Matrisin satir headerlari gizleniyor.
+            //matris.RowHeadersWidth = 30;
+            //matris.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             matris.AllowUserToAddRows = false; //Matrise kullanicilarin satir eklemesi engelleniyor.
             matris.Size = new Size((30*sutun)+56,(20*satir)+48);  //Matris'in boyutu belirleniyor.
             matris.Location = new Point(x, y);            //Matris'in lokasyonu belirleniyor.
@@ -405,13 +408,18 @@ namespace KapsamalarVeSezgiselRota
             return 0; //Kapsanan sutun bulunamadi.
         }
 
-        /*Mutlak sutun , Satir kapsamasi , Sutun kapsamasi , Rota algoritmasi islemlerinin yapilmasi*/
+        /*Mutlak sutun , Satir kapsamasi , Sutun kapsamasi , Rota algoritmasi islemlerinin yapilmasi.*/
         public int islem_yap(DataGridView matris)
         {
             if ((matris.Rows.Count-1) < 2 || (matris.Columns.Count-1) < 2) //Islemler bitmismi kontrol ediliyor.
             {
                 rtb.Text += "\n\n ISLEM SONLANDI \n\n";
                 return 0; //Islem sonlandigi ve bir daha islem yapmayacagi icin 0 donduruyor.
+            }
+            else if(chk_rota.Checked == true) //Sadece sezgisel rota algoritmasi ile indirgeme yapiliyor.
+            {
+                rota_algoritmasi_ile_sil(matris);
+                return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
             }
             else
             {
