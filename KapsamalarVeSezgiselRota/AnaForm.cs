@@ -192,7 +192,6 @@ namespace KapsamalarVeSezgiselRota
             }
             if (bulundu == 0) //Mutlak sutun bulunamadiysa fonksiyondan cikiliyor.
             {
-                MessageBox.Show("Mutlak sutun bulunamadi");
                 return 0; //Fonksiyondan cikiliyor.
             }
 
@@ -274,7 +273,6 @@ namespace KapsamalarVeSezgiselRota
                 {
                     for (int k = 0; k < sutun; k++)
                     {
-                        MessageBox.Show("i,k(" + i + " , " + k + ") = " + matris.Rows[i].Cells[k].Value + "\n" + " j,k(" + j + " ," + k + ") =" + matris.Rows[j].Cells[k].Value);
                         if (Convert.ToInt32(matris.Rows[i].Cells[k].Value) == 1 && Convert.ToInt32(matris.Rows[j].Cells[k].Value) == 0)
                         {
                             ust_kapsar++; //Ust tarafta 1 alt tarafta 0 oldugu icin ust_kapsar degiskeni arttirildi.
@@ -282,12 +280,10 @@ namespace KapsamalarVeSezgiselRota
                                 break; //Alt tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
 
                             /*Daha onceden alt tarafta 1 elemanı bulunmadiysa devam ediliyor.*/
-                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "ust kapsar");
                             ust_kapsar++; //Ust taraf , alt tarafi kapsayacagi icin ust_kapsar degiskeni arttiriliyor.
                         }
                         else if (Convert.ToInt32(matris.Rows[j].Cells[k].Value) == 1 && Convert.ToInt32(matris.Rows[i].Cells[k].Value) == 1)
                         {
-                            MessageBox.Show(matris.Rows[i].Cells[k].Value + "\n" + matris.Rows[j].Cells[k].Value + "Esit");
                         }
                         else if (Convert.ToInt32(matris.Rows[j].Cells[k].Value) == 1 && Convert.ToInt32(matris.Rows[i].Cells[k].Value) == 0)
                         {
@@ -296,7 +292,6 @@ namespace KapsamalarVeSezgiselRota
                                 break; //Ust tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
 
                             /*Daha onceden ust tarafta 1 elemanı bulunmadiysa devam ediliyor.*/
-                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "alt kapsar");
                             alt_kapsar++; //Alt taraf , ust tarafi kapsayacagi icin alt_kapsar degiskeni arttiriliyor.
                         }
                     }
@@ -308,7 +303,7 @@ namespace KapsamalarVeSezgiselRota
                         islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                         rtb.Text += "\n"+islem_sayisi+" => Satir kapsamalarina gore " + i + ". satir " + j + ".satiri kapsadi \n" + "ve " + j + ".satir silindi.";
 
-                        return 1; //Fonksiyonu bitir
+                        return 1; //Fonksiyonu bitir.
                     }
                     else if (alt_kapsar > 0 && ust_kapsar == 0)
                     {
@@ -318,11 +313,10 @@ namespace KapsamalarVeSezgiselRota
                         islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                         rtb.Text += "\n"+islem_sayisi+" => Satir kapsamalarina gore " + j + ". satir " + i + ".satiri kapsadi \n" + "ve " + i + ".satir silindi.";
 
-                        return 1; //Fonksiyonu bitir
+                        return 1; //Fonksiyonu bitir.
                     }
-                    else
+                    else //Kapsama yoktur.
                     {
-                        MessageBox.Show("Kapsama yoktur");
                         alt_kapsar = 0;
                         ust_kapsar = 0;
                     }
@@ -357,7 +351,6 @@ namespace KapsamalarVeSezgiselRota
                 {
                     for (int k = 0; k < satir; k++)
                     {
-                        MessageBox.Show("k,i(" + k + " , " + i + ") = " + matris.Rows[k].Cells[i].Value + "\n" + " k,j(" + k + " ," + j + ") =" + matris.Rows[k].Cells[j].Value);
                         if (Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 0)
                         {
                             sol_kapsar++; //Sol tarafta 1 sag tarafta 0 oldugu icin sol_kapsar degiskeni arttirildi.
@@ -365,12 +358,10 @@ namespace KapsamalarVeSezgiselRota
                                 break; //Sag tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
 
                             /*Daha onceden sag tarafta 1 elemanı bulunmadiysa devam ediliyor.*/
-                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "sol kapsar");
                             sol_kapsar++; // Sol taraf , sag tarafi kapsayacagi icin sol_kapsar degiskeni arttiriliyor.
                         }
                         else if (Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 1)
                         {
-                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + " esit");
                         }
                         else if (Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 0)
                         {
@@ -379,7 +370,6 @@ namespace KapsamalarVeSezgiselRota
                                 break; //Sol tarafta onceden 1 elemanı bulunmussa kapsama yoktur
 
                             /*Daha onceden sol tarafta 1 elemanı bulunmadiysa devam ediliyor.*/
-                            MessageBox.Show(matris.Rows[k].Cells[i].Value + "\n" + matris.Rows[k].Cells[j].Value + "sag kapsar");
                             sag_kapsar++; // Sag taraf , sol tarafi kapsayacagi icin sag_kapsar degiskeni arttiriliyor.
                         }
                     }
@@ -391,7 +381,7 @@ namespace KapsamalarVeSezgiselRota
                         islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                         rtb.Text += "\n" + islem_sayisi + " => Sutun kapsamalarina gore " + i + ". sutun " + j + ".sutun kapsadi \n" + "ve " + j + ".sutun silindi.\n";
 
-                        return 1; //Fonksiyonu bitir
+                        return 1; //Fonksiyonu bitir.
                     }
                     else if (sag_kapsar > 0 && sol_kapsar == 0)
                     {
@@ -401,11 +391,10 @@ namespace KapsamalarVeSezgiselRota
                         islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                         rtb.Text += "\n"+islem_sayisi+" => Sutun kapsamalarina gore " + j + ". sutun " + i + ".sutun kapsadi \n" + "ve " + i + ".sutun silindi.\n";
 
-                        return 1; //Fonksiyonu bitir
+                        return 1; //Fonksiyonu bitir.
                     }
-                    else
+                    else //Kapsama yoktur.
                     {
-                        MessageBox.Show("Kapsama yoktur");
                         sag_kapsar = 0; //Degiskenler bir sonraki kontroller icin 0 laniyor.
                         sol_kapsar = 0; //Degiskenler bir sonraki kontroller icin 0 laniyor.
                     }
@@ -443,6 +432,7 @@ namespace KapsamalarVeSezgiselRota
             else
             {
                 rtb.Text += "\n"+islem_sayisi+" => Mutlak sutun bulundu , satir ve sutun silindi.\n";
+                islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                 return;
             }
         }
