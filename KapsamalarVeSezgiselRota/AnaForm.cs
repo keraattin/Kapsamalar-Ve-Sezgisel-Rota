@@ -17,7 +17,7 @@ namespace KapsamalarVeSezgiselRota
             InitializeComponent();
         }
 
-        public DataGridView matris = new DataGridView();  //Matris icin datagridview olusturuldu.
+        public DataGridView matris1 = new DataGridView();  //Matris icin datagridview olusturuldu.
 
         public DataGridView matris2 = new DataGridView();  //Matris icin datagridview olusturuldu.
 
@@ -51,8 +51,6 @@ namespace KapsamalarVeSezgiselRota
             }
             matris.Rows.Add(); //Ağırlık satiri ekleniyor.
 
-            ilk_deger_ata(); //Matris'in tüm satır ve sütunlarına ilk degerleri atanıyor.
-
             matris.RowHeadersVisible = false; //Matrisin satir headerlari gizleniyor.
             matris.AllowUserToAddRows = false; //Matrise kullanicilarin satir eklemesi engelleniyor.
             matris.Size = new Size((30*sutun)+56,(20*satir)+48);  //Matris'in boyutu belirleniyor.
@@ -62,9 +60,9 @@ namespace KapsamalarVeSezgiselRota
         }
 
         /*Olusturulan matrisin butun degerleri 0 a esitleniyor.*/
-        public void ilk_deger_ata()
+        public void ilk_deger_ata(DataGridView matris)
         {
-            int satir = matris.Rows.Count - 2; //Agirlik sutununu da doldurmamasi icin -2 yaziyoruz.
+            int satir = matris.Rows.Count - 1;
             int sutun = matris.Columns.Count - 1;
 
             /*Deger atanacak satir ve sutunlar 0 ile dolduruluyor.*/
@@ -75,12 +73,10 @@ namespace KapsamalarVeSezgiselRota
                     matris.Rows[i].Cells[j].Value = 0;
                 }
             }
-
-
         }
 
         /*Satır ve sutunların ağırlıklarının hesaplandiği fonksiyon*/
-        public void agirlik_hesapla()
+        public void agirlik_hesapla(DataGridView matris)
         {
             int satir = matris.Rows.Count - 1; //satir sayisi tutulan degisken tanimlandi.
             int sutun = matris.Columns.Count - 1; //sutun sayisi tutulan degsiken tanimlandi.
@@ -136,7 +132,7 @@ namespace KapsamalarVeSezgiselRota
 
         }
 
-        public void mutlak_satir_sutun_bul_ve_sil()
+        public void mutlak_satir_sutun_bul_ve_sil(DataGridView matris)
         {
             int satir = matris.Rows.Count - 1; //Satir sayisi tutulan degisken tanimlandi.
             int sutun = matris.Columns.Count - 1; //Sutun sayisi tutulan degisken tanimlandi.
@@ -179,32 +175,6 @@ namespace KapsamalarVeSezgiselRota
         }
 
 
-        private void btn_olustur_Click(object sender, EventArgs e)
-        {
-
-            /*Kac satır ve sutun olusturulacagı degiskenlere atandı.*/
-            int satir = Convert.ToInt32(txt_satir.Text);
-            int sutun = Convert.ToInt32(txt_sutun.Text);
-
-            matris_olustur(satir, sutun, 20, 80, matris); //Matris olusturma fonksiyonu cagirilip 1.Matris olusturuluyor.
-            int x = matris.Width; //1.Matrisin genislik degeri bulunuyorç
-            matris_olustur(satir, sutun, x+40, 80, matris2); //Matris olusturma fonksiyonu cagirilip 2.Matris olusturuluyor.
-
-            txt_satir.Enabled = false;                    //Satır girisi kapatiliyor.
-            txt_sutun.Enabled = false;                    //Sutun girisi kapatiliyor.
-            btn_olustur.Enabled = false;                  //Olustur butonu kapatiliyor.
-            btn_islem_basla.Enabled = true;               //Isleme basla butonu aciliyor.
-
-        }
-
-        /*Islemleri baslatan button*/
-        private void btn_islem_basla_Click(object sender, EventArgs e)
-        {
-            agirlik_hesapla(); //Satır sutun agirliklari hesaplandi.
-
-            btn_islem_basla.Enabled = false; //Isleme baslama butonu kapandi.
-            btn_ilerle.Enabled = true;  //Ilerleme butonu acildi.
-        }
 
         /*En kucuk agirlikli satirin sirasi ve degerinin tutulacagi bir struct olusturuldu.*/
         public struct enKucuk
@@ -214,7 +184,7 @@ namespace KapsamalarVeSezgiselRota
         };
 
         /*Rota algoritmasi ile silme fonksiyonu*/
-        public void rota_algoritmasi_ile_sil()
+        public void rota_algoritmasi_ile_sil(DataGridView matris)
         {
             int satir_sayisi = matris.Rows.Count - 1;
             float[] agirlik_degerleri = new float[satir_sayisi];
@@ -244,7 +214,7 @@ namespace KapsamalarVeSezgiselRota
 
 
 
-        public void satir_kapsamalarina_gore_sil()
+        public void satir_kapsamalarina_gore_sil(DataGridView matris)
         {
             int satir = matris.Rows.Count - 1; //satir sayisi tutulan degisken tanimlandi.
             int sutun = matris.Columns.Count - 1; //sutun sayisi tanimlandi.
@@ -321,7 +291,7 @@ namespace KapsamalarVeSezgiselRota
 
         }
 
-        public void sutun_kapsamalarina_gore_sil()
+        public void sutun_kapsamalarina_gore_sil(DataGridView matris)
         {
             int satir = matris.Rows.Count - 1; //satir sayisi tutulan degisken tanimlandi.
             int sutun = matris.Columns.Count - 1; //sutun sayisi tanimlandi.
@@ -402,13 +372,49 @@ namespace KapsamalarVeSezgiselRota
 
         }
 
+        /*-------------------------- Eventler --------------------------*/
+
+        private void btn_olustur_Click(object sender, EventArgs e)
+        {
+
+            /*Kac satır ve sutun olusturulacagı degiskenlere atandı.*/
+            int satir = Convert.ToInt32(txt_satir.Text);
+            int sutun = Convert.ToInt32(txt_sutun.Text);
+
+            matris_olustur(satir, sutun, 20, 80, matris1); //Matris olusturma fonksiyonu cagirilip 1.Matris olusturuluyor.
+            int x = matris1.Width; //1.Matrisin genislik degeri bulunuyorç
+            matris_olustur(satir, sutun, x+40, 80, matris2); //Matris olusturma fonksiyonu cagirilip 2.Matris olusturuluyor.
+
+            ilk_deger_ata(matris1);
+            ilk_deger_ata(matris2);
+
+            txt_satir.Enabled = false;                    //Satır girisi kapatiliyor.
+            txt_sutun.Enabled = false;                    //Sutun girisi kapatiliyor.
+            btn_olustur.Enabled = false;                  //Olustur butonu kapatiliyor.
+            btn_islem_basla.Enabled = true;               //Isleme basla butonu aciliyor.
+
+        }
+
+
+        /*Islemleri baslatan button*/
+        private void btn_islem_basla_Click(object sender, EventArgs e)
+        {
+            agirlik_hesapla(matris1); //Satir sutun agirliklari hesaplandi.
+            agirlik_hesapla(matris2); //Satir sutun agirliklari hesaplandi.
+
+            btn_islem_basla.Enabled = false; //Isleme baslama butonu kapandi.
+            btn_ilerle.Enabled = true;  //Ilerleme butonu acildi.
+        }
+
         private void btn_ilerle_Click(object sender, EventArgs e)
         {
             //rota_algoritmasi_ile_sil();
-            //mutlak_satir_sutun_bul_ve_sil();
-            sutun_kapsamalarina_gore_sil();
+            mutlak_satir_sutun_bul_ve_sil(matris1);
+            mutlak_satir_sutun_bul_ve_sil(matris2);
+            //sutun_kapsamalarina_gore_sil();
             //satir_kapsamalarina_gore_sil();
-            agirlik_hesapla();
+            agirlik_hesapla(matris1);
+            agirlik_hesapla(matris2);
         }
     }
 }
