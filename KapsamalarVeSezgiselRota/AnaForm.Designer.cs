@@ -36,6 +36,10 @@
             this.txt_sutun = new System.Windows.Forms.TextBox();
             this.txt_satir = new System.Windows.Forms.TextBox();
             this.btn_olustur = new System.Windows.Forms.Button();
+            this.grb_baslangic = new System.Windows.Forms.GroupBox();
+            this.rd_el_ile = new System.Windows.Forms.RadioButton();
+            this.rd_random = new System.Windows.Forms.RadioButton();
+            this.grb_baslangic.SuspendLayout();
             this.SuspendLayout();
             // 
             // lbl_durum
@@ -48,7 +52,7 @@
             // 
             // btn_ilerle
             // 
-            this.btn_ilerle.Location = new System.Drawing.Point(349, 21);
+            this.btn_ilerle.Location = new System.Drawing.Point(459, 23);
             this.btn_ilerle.Name = "btn_ilerle";
             this.btn_ilerle.Size = new System.Drawing.Size(75, 50);
             this.btn_ilerle.TabIndex = 14;
@@ -58,7 +62,7 @@
             // 
             // btn_islem_basla
             // 
-            this.btn_islem_basla.Location = new System.Drawing.Point(249, 21);
+            this.btn_islem_basla.Location = new System.Drawing.Point(359, 23);
             this.btn_islem_basla.Name = "btn_islem_basla";
             this.btn_islem_basla.Size = new System.Drawing.Size(75, 50);
             this.btn_islem_basla.TabIndex = 13;
@@ -69,7 +73,7 @@
             // lbl_sutun
             // 
             this.lbl_sutun.AutoSize = true;
-            this.lbl_sutun.Location = new System.Drawing.Point(75, 15);
+            this.lbl_sutun.Location = new System.Drawing.Point(68, 21);
             this.lbl_sutun.Name = "lbl_sutun";
             this.lbl_sutun.Size = new System.Drawing.Size(45, 17);
             this.lbl_sutun.TabIndex = 12;
@@ -78,7 +82,7 @@
             // lbl_satir
             // 
             this.lbl_satir.AutoSize = true;
-            this.lbl_satir.Location = new System.Drawing.Point(18, 15);
+            this.lbl_satir.Location = new System.Drawing.Point(11, 21);
             this.lbl_satir.Name = "lbl_satir";
             this.lbl_satir.Size = new System.Drawing.Size(37, 17);
             this.lbl_satir.TabIndex = 11;
@@ -86,7 +90,7 @@
             // 
             // txt_sutun
             // 
-            this.txt_sutun.Location = new System.Drawing.Point(71, 35);
+            this.txt_sutun.Location = new System.Drawing.Point(64, 41);
             this.txt_sutun.Multiline = true;
             this.txt_sutun.Name = "txt_sutun";
             this.txt_sutun.Size = new System.Drawing.Size(49, 32);
@@ -94,7 +98,7 @@
             // 
             // txt_satir
             // 
-            this.txt_satir.Location = new System.Drawing.Point(16, 35);
+            this.txt_satir.Location = new System.Drawing.Point(9, 41);
             this.txt_satir.Multiline = true;
             this.txt_satir.Name = "txt_satir";
             this.txt_satir.Size = new System.Drawing.Size(49, 32);
@@ -102,7 +106,7 @@
             // 
             // btn_olustur
             // 
-            this.btn_olustur.Location = new System.Drawing.Point(126, 21);
+            this.btn_olustur.Location = new System.Drawing.Point(265, 23);
             this.btn_olustur.Name = "btn_olustur";
             this.btn_olustur.Size = new System.Drawing.Size(73, 50);
             this.btn_olustur.TabIndex = 8;
@@ -110,22 +114,58 @@
             this.btn_olustur.UseVisualStyleBackColor = true;
             this.btn_olustur.Click += new System.EventHandler(this.btn_olustur_Click);
             // 
+            // grb_baslangic
+            // 
+            this.grb_baslangic.Controls.Add(this.rd_random);
+            this.grb_baslangic.Controls.Add(this.rd_el_ile);
+            this.grb_baslangic.Controls.Add(this.txt_sutun);
+            this.grb_baslangic.Controls.Add(this.txt_satir);
+            this.grb_baslangic.Controls.Add(this.lbl_satir);
+            this.grb_baslangic.Controls.Add(this.lbl_sutun);
+            this.grb_baslangic.Controls.Add(this.btn_olustur);
+            this.grb_baslangic.Location = new System.Drawing.Point(3, 0);
+            this.grb_baslangic.Name = "grb_baslangic";
+            this.grb_baslangic.Size = new System.Drawing.Size(350, 84);
+            this.grb_baslangic.TabIndex = 16;
+            this.grb_baslangic.TabStop = false;
+            this.grb_baslangic.Text = "Başlangıç";
+            // 
+            // rd_el_ile
+            // 
+            this.rd_el_ile.AutoSize = true;
+            this.rd_el_ile.Location = new System.Drawing.Point(119, 23);
+            this.rd_el_ile.Name = "rd_el_ile";
+            this.rd_el_ile.Size = new System.Drawing.Size(140, 21);
+            this.rd_el_ile.TabIndex = 13;
+            this.rd_el_ile.TabStop = true;
+            this.rd_el_ile.Text = "Değerleri el ile gir";
+            this.rd_el_ile.UseVisualStyleBackColor = true;
+            // 
+            // rd_random
+            // 
+            this.rd_random.AutoSize = true;
+            this.rd_random.Location = new System.Drawing.Point(119, 47);
+            this.rd_random.Name = "rd_random";
+            this.rd_random.Size = new System.Drawing.Size(132, 21);
+            this.rd_random.TabIndex = 14;
+            this.rd_random.TabStop = true;
+            this.rd_random.Text = "Random atansın";
+            this.rd_random.UseVisualStyleBackColor = true;
+            // 
             // AnaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1109, 700);
+            this.Controls.Add(this.grb_baslangic);
             this.Controls.Add(this.lbl_durum);
             this.Controls.Add(this.btn_ilerle);
             this.Controls.Add(this.btn_islem_basla);
-            this.Controls.Add(this.lbl_sutun);
-            this.Controls.Add(this.lbl_satir);
-            this.Controls.Add(this.txt_sutun);
-            this.Controls.Add(this.txt_satir);
-            this.Controls.Add(this.btn_olustur);
             this.Name = "AnaForm";
             this.Text = "AnaForm";
             this.Load += new System.EventHandler(this.AnaForm_Load);
+            this.grb_baslangic.ResumeLayout(false);
+            this.grb_baslangic.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -141,5 +181,8 @@
         private System.Windows.Forms.TextBox txt_sutun;
         private System.Windows.Forms.TextBox txt_satir;
         private System.Windows.Forms.Button btn_olustur;
+        private System.Windows.Forms.GroupBox grb_baslangic;
+        private System.Windows.Forms.RadioButton rd_random;
+        private System.Windows.Forms.RadioButton rd_el_ile;
     }
 }

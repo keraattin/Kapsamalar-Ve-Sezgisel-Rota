@@ -25,7 +25,8 @@ namespace KapsamalarVeSezgiselRota
         {
             btn_islem_basla.Enabled = false;
             btn_ilerle.Enabled = false;
-            this.AcceptButton = btn_olustur;          
+            this.AcceptButton = btn_olustur;
+            rd_el_ile.Checked = true;
         }
 
         public void matris_olustur(int satir,int sutun,int x,int y,DataGridView matris)
@@ -65,14 +66,33 @@ namespace KapsamalarVeSezgiselRota
             int satir = matris.Rows.Count - 1;
             int sutun = matris.Columns.Count - 1;
 
-            /*Deger atanacak satir ve sutunlar 0 ile dolduruluyor.*/
-            for (int i = 0; i < satir; i++)
+            if(rd_random.Checked == true)
             {
-                for (int j = 0; j < sutun; j++)
+                Random rnd = new Random();
+
+                for (int i = 0; i < satir; i++)
                 {
-                    matris.Rows[i].Cells[j].Value = 0;
+                    for (int j = 0; j < sutun; j++)
+                    {
+                        matris.Rows[i].Cells[j].Value = rnd.Next(0,2); //0 ile 1 arasi random sayilar uretiliyor.
+                        matris.Rows[i].Cells[j].ReadOnly = true; //Her hucre yazmaya korumali hale getiriliyor.
+                    }
+                }
+
+            }
+            else if(rd_el_ile.Checked == true)
+            {
+
+                /*Deger atanacak satir ve sutunlar 0 ile dolduruluyor.*/
+                for (int i = 0; i < satir; i++)
+                {
+                    for (int j = 0; j < sutun; j++)
+                    {
+                        matris.Rows[i].Cells[j].Value = 0;
+                    }
                 }
             }
+
         }
 
         /*Satır ve sutunların ağırlıklarının hesaplandiği fonksiyon*/
