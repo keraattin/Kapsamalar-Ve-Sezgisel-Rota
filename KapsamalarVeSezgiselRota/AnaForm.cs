@@ -82,7 +82,6 @@ namespace KapsamalarVeSezgiselRota
             }
             else if(rd_el_ile.Checked == true)
             {
-
                 /*Deger atanacak satir ve sutunlar 0 ile dolduruluyor.*/
                 for (int i = 0; i < satir; i++)
                 {
@@ -93,6 +92,21 @@ namespace KapsamalarVeSezgiselRota
                 }
             }
 
+        }
+
+        /*Matris 1 deki degerleri Matris 2 ye aktarma fonksiyonu.*/
+        public void degerleri_aktar(DataGridView m1, DataGridView m2)
+        {
+            int satir = m1.Rows.Count - 1;
+            int sutun = m1.Columns.Count - 1;
+
+            for (int i = 0; i < satir; i++)
+            {
+                for (int j = 0; j < sutun; j++)
+                {
+                    m2.Rows[i].Cells[j].Value = m1.Rows[i].Cells[j].Value; //Matris1 deki degerler Matris2 ye aktariliyor.
+                }
+            }
         }
 
         /*Satır ve sutunların ağırlıklarının hesaplandiği fonksiyon*/
@@ -402,12 +416,10 @@ namespace KapsamalarVeSezgiselRota
             int sutun = Convert.ToInt32(txt_sutun.Text);
 
             matris_olustur(satir, sutun, 20, 80, matris1); //Matris olusturma fonksiyonu cagirilip 1.Matris olusturuluyor.
-            int x = matris1.Width; //1.Matrisin genislik degeri bulunuyorç
-            matris_olustur(satir, sutun, x+40, 80, matris2); //Matris olusturma fonksiyonu cagirilip 2.Matris olusturuluyor.
 
-            ilk_deger_ata(matris1);
-            ilk_deger_ata(matris2);
+            ilk_deger_ata(matris1); //Ilk deger atamasi yapan fonksyiona matris1 gonderiliyor.
 
+            grb_baslangic.Enabled = false;                //grb_baslangic grubBox'u kapatiliyor.
             txt_satir.Enabled = false;                    //Satır girisi kapatiliyor.
             txt_sutun.Enabled = false;                    //Sutun girisi kapatiliyor.
             btn_olustur.Enabled = false;                  //Olustur butonu kapatiliyor.
@@ -420,6 +432,13 @@ namespace KapsamalarVeSezgiselRota
         private void btn_islem_basla_Click(object sender, EventArgs e)
         {
             agirlik_hesapla(matris1); //Satir sutun agirliklari hesaplandi.
+
+            /*Ikinci matris olusturuluyor ve 1.Matrisdeki degelerler 2.Matrise aktariliyor.*/
+            int satir = matris1.Rows.Count - 1;
+            int sutun = matris1.Columns.Count - 1;
+            int x = matris1.Width; //1.Matrisin genislik degeri bulunuyor.
+            matris_olustur(satir, sutun, x + 40, 80, matris2); //Matris olusturma fonksiyonu cagirilip 2.Matris olusturuluyor.
+            degerleri_aktar(matris1, matris2); //Matris1 deki degerler Matris2 ye aktarildi.
             agirlik_hesapla(matris2); //Satir sutun agirliklari hesaplandi.
 
             btn_islem_basla.Enabled = false; //Isleme baslama butonu kapandi.
