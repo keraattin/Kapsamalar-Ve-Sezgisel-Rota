@@ -23,6 +23,8 @@ namespace KapsamalarVeSezgiselRota
 
         public RichTextBox rtb = new RichTextBox(); //Islemlerin yazilacagi RichTextBox olusturuldu.
 
+        public int islem_sayisi = 0; //Islem sayilarinin tutulacagi degisken olusturuldu.
+
         private void AnaForm_Load(object sender, EventArgs e)
         {
             btn_islem_basla.Enabled = false;
@@ -207,6 +209,8 @@ namespace KapsamalarVeSezgiselRota
             string sutun_adi = matris.Columns[mutlak_sutun].Name; //Mutlak sutunun adi bulunuyor.
             matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
             matris.Rows.Remove(matris.Rows[mutlak_satir]); //Mutlak satir siliniyor.
+
+            islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
             return 1;
         }
 
@@ -301,7 +305,8 @@ namespace KapsamalarVeSezgiselRota
                         DataGridViewRow silinecek_satir = matris.Rows[j]; //Silinecek satir belirleniyor.
                         matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
 
-                        rtb.Text += "\nSatir kapsamalarina gore " + i + ". satir " + j + ".satiri kapsadi \n" + "ve " + j + ".satir silindi.";
+                        islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
+                        rtb.Text += "\n"+islem_sayisi+" => Satir kapsamalarina gore " + i + ". satir " + j + ".satiri kapsadi \n" + "ve " + j + ".satir silindi.";
 
                         return 1; //Fonksiyonu bitir
                     }
@@ -310,7 +315,8 @@ namespace KapsamalarVeSezgiselRota
                         DataGridViewRow silinecek_satir = matris.Rows[i]; //Silinecek satir belirleniyor.
                         matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
 
-                        rtb.Text += "\nSatir kapsamalarina gore " + j + ". satir " + i + ".satiri kapsadi \n" + "ve " + i + ".satir silindi.";
+                        islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
+                        rtb.Text += "\n"+islem_sayisi+" => Satir kapsamalarina gore " + j + ". satir " + i + ".satiri kapsadi \n" + "ve " + i + ".satir silindi.";
 
                         return 1; //Fonksiyonu bitir
                     }
@@ -329,8 +335,8 @@ namespace KapsamalarVeSezgiselRota
 
         public int sutun_kapsamalarina_gore_sil(DataGridView matris)
         {
-            int satir = matris.Rows.Count - 1; //satir sayisi tutulan degisken tanimlandi.
-            int sutun = matris.Columns.Count - 1; //sutun sayisi tanimlandi.
+            int satir = matris.Rows.Count - 1; //Satir sayisi tutulan degisken tanimlandi.
+            int sutun = matris.Columns.Count - 1; //Sutun sayisi tutulan degisken tanimlandi.
             int sol_kapsar = 0;
             int sag_kapsar = 0;
 
@@ -382,7 +388,8 @@ namespace KapsamalarVeSezgiselRota
                         string sutun_adi = matris.Columns[j].Name; //Mutlak sutunun adi bulunuyor.
                         matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
 
-                        rtb.Text += "\nSutun kapsamalarina gore " + i + ". sutun " + j + ".sutun kapsadi \n" + "ve " + j + ".sutun silindi.";
+                        islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
+                        rtb.Text += "\n" + islem_sayisi + " => Sutun kapsamalarina gore " + i + ". sutun " + j + ".sutun kapsadi \n" + "ve " + j + ".sutun silindi.\n";
 
                         return 1; //Fonksiyonu bitir
                     }
@@ -391,7 +398,8 @@ namespace KapsamalarVeSezgiselRota
                         string sutun_adi = matris.Columns[i].Name; //Mutlak sutunun adi bulunuyor.
                         matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
 
-                        rtb.Text += "\nSutun kapsamalarina gore " + j + ". sutun " + i + ".sutun kapsadi \n" + "ve " + i + ".sutun silindi.";
+                        islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
+                        rtb.Text += "\n"+islem_sayisi+" => Sutun kapsamalarina gore " + j + ". sutun " + i + ".sutun kapsadi \n" + "ve " + i + ".sutun silindi.\n";
 
                         return 1; //Fonksiyonu bitir
                     }
@@ -433,7 +441,7 @@ namespace KapsamalarVeSezgiselRota
             }
             else
             {
-                rtb.Text += "\nMutlak sutun bulundu , satir ve sutun silindi.\n";
+                rtb.Text += "\n"+islem_sayisi+" => Mutlak sutun bulundu , satir ve sutun silindi.\n";
                 return;
             }
         }
@@ -477,9 +485,9 @@ namespace KapsamalarVeSezgiselRota
             rtb.Size = new Size ( 600 , 400 ); //Boyutu belirlendi.
             rtb.Top = (matris1.Height) + 120; //Ustten ne kadar asagida olacagi belirlendi.
             rtb.Left = 20; //Soldan ne kadar sagda olacagi belirlendi
-            rtb.Text += "1 => Islemlere baslandi \n"; //Baslangic yazisi yazildi.
+            rtb.Text += islem_sayisi.ToString() +" => Islemlere baslandi \n"; //Baslangic yazisi yazildi.
             rtb.Visible = true; //RichTextBox'un gorunurlugu acildi.
-            rtb.Enabled = false; //RichTextBox'un kullanici tarafından degistirilmesi engellendi.
+            rtb.ReadOnly = true; //RichTextBox'un kullanici tarafından degistirilmesi engellendi.
             this.Controls.Add(rtb); //RichTextBox Form a eklendi.
 
             btn_islem_basla.Enabled = false; //Isleme baslama butonu kapandi.
