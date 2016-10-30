@@ -45,7 +45,7 @@
             // lbl_durum
             // 
             this.lbl_durum.AutoSize = true;
-            this.lbl_durum.Location = new System.Drawing.Point(731, 49);
+            this.lbl_durum.Location = new System.Drawing.Point(583, 21);
             this.lbl_durum.Name = "lbl_durum";
             this.lbl_durum.Size = new System.Drawing.Size(0, 17);
             this.lbl_durum.TabIndex = 15;

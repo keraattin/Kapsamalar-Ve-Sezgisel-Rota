@@ -21,6 +21,8 @@ namespace KapsamalarVeSezgiselRota
 
         public DataGridView matris2 = new DataGridView();  //Matris icin datagridview olusturuldu.
 
+        public RichTextBox rtb = new RichTextBox(); //Islemlerin yazilacagi RichTextBox olusturuldu.
+
         private void AnaForm_Load(object sender, EventArgs e)
         {
             btn_islem_basla.Enabled = false;
@@ -166,7 +168,7 @@ namespace KapsamalarVeSezgiselRota
 
         }
 
-        public void mutlak_satir_sutun_bul_ve_sil(DataGridView matris)
+        public int mutlak_satir_sutun_bul_ve_sil(DataGridView matris)
         {
             int satir = matris.Rows.Count - 1; //Satir sayisi tutulan degisken tanimlandi.
             int sutun = matris.Columns.Count - 1; //Sutun sayisi tutulan degisken tanimlandi.
@@ -189,7 +191,7 @@ namespace KapsamalarVeSezgiselRota
             if (bulundu == 0) //Mutlak sutun bulunamadiysa fonksiyondan cikiliyor.
             {
                 MessageBox.Show("Mutlak sutun bulunamadi");
-                return; //Fonksiyondan cikiliyor.
+                return 0; //Fonksiyondan cikiliyor.
             }
 
             /*Mutlak sutunun 1 oldugu satir araniyor.*/
@@ -205,7 +207,7 @@ namespace KapsamalarVeSezgiselRota
             string sutun_adi = matris.Columns[mutlak_sutun].Name; //Mutlak sutunun adi bulunuyor.
             matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
             matris.Rows.Remove(matris.Rows[mutlak_satir]); //Mutlak satir siliniyor.
-
+            return 1;
         }
 
 
@@ -248,10 +250,10 @@ namespace KapsamalarVeSezgiselRota
 
 
 
-        public void satir_kapsamalarina_gore_sil(DataGridView matris)
+        public int satir_kapsamalarina_gore_sil(DataGridView matris)
         {
             int satir = matris.Rows.Count - 1; //satir sayisi tutulan degisken tanimlandi.
-            int sutun = matris.Columns.Count - 1; //sutun sayisi tanimlandi.
+            int sutun = matris.Columns.Count - 1; //sutun sayisi tutulan degisken tanimlandi.
             int ust_kapsar = 0;
             int alt_kapsar = 0;
 
@@ -299,18 +301,18 @@ namespace KapsamalarVeSezgiselRota
                         DataGridViewRow silinecek_satir = matris.Rows[j]; //Silinecek satir belirleniyor.
                         matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
 
-                        lbl_durum.Text += "\nSatir kapsamalarina gore " + i + ". satir " + j + ".satiri kapsadi \n" + "ve " + j + ".satir silindi.";
+                        rtb.Text += "\nSatir kapsamalarina gore " + i + ". satir " + j + ".satiri kapsadi \n" + "ve " + j + ".satir silindi.";
 
-                        return; //Fonksiyonu bitir
+                        return 1; //Fonksiyonu bitir
                     }
                     else if (alt_kapsar > 0 && ust_kapsar == 0)
                     {
                         DataGridViewRow silinecek_satir = matris.Rows[i]; //Silinecek satir belirleniyor.
                         matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
 
-                        lbl_durum.Text += "\nSatir kapsamalarina gore " + j + ". satir " + i + ".satiri kapsadi \n" + "ve " + i + ".satir silindi.";
+                        rtb.Text += "\nSatir kapsamalarina gore " + j + ". satir " + i + ".satiri kapsadi \n" + "ve " + i + ".satir silindi.";
 
-                        return; //Fonksiyonu bitir
+                        return 1; //Fonksiyonu bitir
                     }
                     else
                     {
@@ -322,10 +324,10 @@ namespace KapsamalarVeSezgiselRota
                     ust_kapsar = 0;
                 }
             }
-
+            return 0; //Kapsanan satir bulunamadi.
         }
 
-        public void sutun_kapsamalarina_gore_sil(DataGridView matris)
+        public int sutun_kapsamalarina_gore_sil(DataGridView matris)
         {
             int satir = matris.Rows.Count - 1; //satir sayisi tutulan degisken tanimlandi.
             int sutun = matris.Columns.Count - 1; //sutun sayisi tanimlandi.
@@ -380,18 +382,18 @@ namespace KapsamalarVeSezgiselRota
                         string sutun_adi = matris.Columns[j].Name; //Mutlak sutunun adi bulunuyor.
                         matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
 
-                        lbl_durum.Text += "\nSutun kapsamalarina gore " + i + ". sutun " + j + ".sutun kapsadi \n" + "ve " + j + ".sutun silindi.";
+                        rtb.Text += "\nSutun kapsamalarina gore " + i + ". sutun " + j + ".sutun kapsadi \n" + "ve " + j + ".sutun silindi.";
 
-                        return; //Fonksiyonu bitir
+                        return 1; //Fonksiyonu bitir
                     }
                     else if (sag_kapsar > 0 && sol_kapsar == 0)
                     {
                         string sutun_adi = matris.Columns[i].Name; //Mutlak sutunun adi bulunuyor.
                         matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
 
-                        lbl_durum.Text += "\nSutun kapsamalarina gore " + j + ". sutun " + i + ".sutun kapsadi \n" + "ve " + i + ".sutun silindi.";
+                        rtb.Text += "\nSutun kapsamalarina gore " + j + ". sutun " + i + ".sutun kapsadi \n" + "ve " + i + ".sutun silindi.";
 
-                        return; //Fonksiyonu bitir
+                        return 1; //Fonksiyonu bitir
                     }
                     else
                     {
@@ -403,7 +405,37 @@ namespace KapsamalarVeSezgiselRota
                     sol_kapsar = 0; //Degiskenler bir sonraki kontroller icin 0 laniyor.
                 }
             }
+            return 0; //Kapsanan sutun bulunamadi.
+        }
 
+        /*Mutlak sutun , Satir kapsamasi , Sutun kapsamasi , Rota algoritmasi islemlerinin yapilmasi*/
+        public void islem_yap(DataGridView matris)
+        {
+            if (mutlak_satir_sutun_bul_ve_sil(matris) == 0)
+            {
+                rtb.Text += "\nMutlak sutun bulunamadi ";
+                if (satir_kapsamalarina_gore_sil(matris) == 0)
+                {
+                    rtb.Text += " , Kapsanan satir bulunamadi ";
+                    if (sutun_kapsamalarina_gore_sil(matris) == 0)
+                    {
+                        rtb.Text += " , Kapsanan sutun bulunamadi ";
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+            }
+            else
+            {
+                rtb.Text += "\nMutlak sutun bulundu , satir ve sutun silindi.\n";
+                return;
+            }
         }
 
         /*-------------------------- Eventler --------------------------*/
@@ -441,6 +473,15 @@ namespace KapsamalarVeSezgiselRota
             degerleri_aktar(matris1, matris2); //Matris1 deki degerler Matris2 ye aktarildi.
             agirlik_hesapla(matris2); //Satir sutun agirliklari hesaplandi.
 
+            /*Yapilan islemlerin yazilacagi RichTextBox tanimlaniyor.*/
+            rtb.Size = new Size ( 600 , 400 ); //Boyutu belirlendi.
+            rtb.Top = (matris1.Height) + 120; //Ustten ne kadar asagida olacagi belirlendi.
+            rtb.Left = 20; //Soldan ne kadar sagda olacagi belirlendi
+            rtb.Text += "1 => Islemlere baslandi \n"; //Baslangic yazisi yazildi.
+            rtb.Visible = true; //RichTextBox'un gorunurlugu acildi.
+            rtb.Enabled = false; //RichTextBox'un kullanici tarafından degistirilmesi engellendi.
+            this.Controls.Add(rtb); //RichTextBox Form a eklendi.
+
             btn_islem_basla.Enabled = false; //Isleme baslama butonu kapandi.
             btn_ilerle.Enabled = true;  //Ilerleme butonu acildi.
         }
@@ -448,10 +489,11 @@ namespace KapsamalarVeSezgiselRota
         private void btn_ilerle_Click(object sender, EventArgs e)
         {
             //rota_algoritmasi_ile_sil();
-            mutlak_satir_sutun_bul_ve_sil(matris1);
-            mutlak_satir_sutun_bul_ve_sil(matris2);
+            //mutlak_satir_sutun_bul_ve_sil(matris1);
+            //mutlak_satir_sutun_bul_ve_sil(matris2);
             //sutun_kapsamalarina_gore_sil();
             //satir_kapsamalarina_gore_sil();
+            islem_yap(matris1);
             agirlik_hesapla(matris1);
             agirlik_hesapla(matris2);
         }
