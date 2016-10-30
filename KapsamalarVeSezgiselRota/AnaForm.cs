@@ -249,7 +249,7 @@ namespace KapsamalarVeSezgiselRota
             }
             DataGridViewRow silinecek_satir = matris.Rows[en_kucuk.sira]; //Silinecek satir belirleniyor.
             matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
-            lbl_durum.Text += "\nRota algoritmasına gore " + en_kucuk.sira + ". satir en dusuk agirlik degerine sahip oldugu icin silindi.";
+            rtb.Text += "\n"+islem_sayisi+" => Rota algoritmasına gore " + en_kucuk.sira + ". satir en dusuk agirlik degerine sahip oldugu icin silindi.\n";
         }
 
 
@@ -428,6 +428,7 @@ namespace KapsamalarVeSezgiselRota
                     if (sutun_kapsamalarina_gore_sil(matris) == 0)
                     {
                         rtb.Text += " , Kapsanan sutun bulunamadi ";
+                        rota_algoritmasi_ile_sil(matris); //Hicbir fonksiyon calismadiysa rota algoritmasina gore en dusuk agirligi olan satir siliniyor.
                     }
                     else
                     {
@@ -492,16 +493,14 @@ namespace KapsamalarVeSezgiselRota
 
             btn_islem_basla.Enabled = false; //Isleme baslama butonu kapandi.
             btn_ilerle.Enabled = true;  //Ilerleme butonu acildi.
+
+            islem_yap(matris2); //Matris2'nin onden gidebilmesi icin islemler onceden basliyor.
         }
 
         private void btn_ilerle_Click(object sender, EventArgs e)
         {
-            //rota_algoritmasi_ile_sil();
-            //mutlak_satir_sutun_bul_ve_sil(matris1);
-            //mutlak_satir_sutun_bul_ve_sil(matris2);
-            //sutun_kapsamalarina_gore_sil();
-            //satir_kapsamalarina_gore_sil();
             islem_yap(matris1);
+            islem_yap(matris2);
             agirlik_hesapla(matris1);
             agirlik_hesapla(matris2);
         }
