@@ -48,20 +48,26 @@ namespace KapsamalarVeSezgiselRota
             matris.Columns["agirlik"].Width = 50; //Ağırlık sütununun genişliği ayarlandı.
             matris.Columns["agirlik"].Resizable = DataGridViewTriState.False; //Ağırlık sütunun genişliği değiştilemez olarak ayarlandi.
 
+            matris.TopLeftHeaderCell.Value = "y\\x"; //Sol en ustteki hücreye "y\x" yazildi.
+           
             /*Matrise "satir" degiskeni kadar satır ekleniyor.*/
             for (int j = 0; j < satir; j++)
             {
                 matris.Rows.Add(); //Satir ekleme.
-                matris.Rows[j].Height = 20;
-                //matris.Rows[j].HeaderCell.Value = "y" + j; 
+                matris.Rows[j].Height = 20; //Satirlarin yuksekligi ayarlandi.
+                matris.Rows[j].HeaderCell.Value = "y" + j; //Satirlarin basina isim verildi.
+                matris.Rows[j].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight; //Satir basindaki yazilar saga dayali hale getirildi.
             }
             matris.Rows.Add(); //Ağırlık satiri ekleniyor.
 
-            matris.RowHeadersVisible = false; //Matrisin satir headerlari gizleniyor.
-            //matris.RowHeadersWidth = 30;
-            //matris.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            matris.RowHeadersWidth = 50;  //Header satirinin genisligi ayarlaniyor. 
+            matris.SelectionMode = DataGridViewSelectionMode.CellSelect; //Secimin sadece hücre bazli yapilmasi saglaniyor.
+            matris.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing; //Satir basindaki hucrenin yeniden boyutlandirilmasi engelleniyor.
+            matris.MultiSelect = false; //Kullanicilarin birden cok secim yapmasi engelleniyor.
+            matris.AllowUserToDeleteRows = false; //Kullanicilarin matristen satir silmesi engelleniyor.
+            matris.AllowUserToResizeRows = false; //Kullanicillarin matirisin satirlarinin boyutunu degistirmesi engelleniyor.
             matris.AllowUserToAddRows = false; //Matrise kullanicilarin satir eklemesi engelleniyor.
-            matris.Size = new Size((30*sutun)+56,(20*satir)+48);  //Matris'in boyutu belirleniyor.
+            matris.Size = new Size((30*sutun)+106,(20*satir)+48);  //Matris'in boyutu belirleniyor.
             matris.Location = new Point(x, y);            //Matris'in lokasyonu belirleniyor.
             matris.Visible = true;                        //Matris'in görünürlüğü aciliyor.
             this.Controls.Add(matris);                    //Matris pencereye ekleniyor.
