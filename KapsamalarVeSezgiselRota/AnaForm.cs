@@ -192,7 +192,7 @@ namespace KapsamalarVeSezgiselRota
             /*Agırlıkları 1 olan sutunlar bulunuyor.*/
             for (int i = 0; i < sutun; i++)
             {
-                if (Convert.ToInt32(matris.Rows[satir].Cells[i].Value) == 1) //Sutunun degeri 1'e esitmi kontrol ediliyor.
+                if (Convert.ToInt32(matris.Rows[satir].Cells[i].Value) == 1) //Agirlik sutunun degeri 1'e esitmi kontrol ediliyor.
                 {
                     mutlak_sutun = i; //Mutlak sutunun degeri i olarak degistiriliyor.
                     bulundu++; //Bulundu degiskeni kontrol icin degeri arttirliyor.
@@ -207,7 +207,7 @@ namespace KapsamalarVeSezgiselRota
             /*Mutlak sutunun 1 oldugu satir araniyor.*/
             for (int i = 0; i < satir; i++)
             {
-                if (Convert.ToInt32(matris.Rows[i].Cells[mutlak_satir].Value) == 1) //Satir ve mutlak_sutun'un degeri 1'e esitmi kontrol ediliyor.
+                if (Convert.ToInt32(matris.Rows[i].Cells[mutlak_sutun].Value) == 1) //Satir ve mutlak_sutun'un degeri 1'e esitmi kontrol ediliyor.
                 {
                     mutlak_satir = i; //Mutlak satirin degeri i olarak degistiriliyor.
                     break; 
@@ -216,7 +216,11 @@ namespace KapsamalarVeSezgiselRota
 
             string sutun_adi = matris.Columns[mutlak_sutun].Name; //Mutlak sutunun adi bulunuyor.
             matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
-            matris.Rows.Remove(matris.Rows[mutlak_satir]); //Mutlak satir siliniyor.
+
+            DataGridViewRow satir_adi = matris.Rows[mutlak_satir];
+            matris.Rows.RemoveAt(mutlak_satir); //Mutlak satir siliniyor.
+
+            lbl_kapsamalar.Text += satir_adi.HeaderCell.Value + " ";
 
             islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
             return 1;
@@ -454,7 +458,6 @@ namespace KapsamalarVeSezgiselRota
                 else
                 {
                     rtb.Text += "\n" + islem_sayisi + " => Mutlak sutun bulundu , satir ve sutun silindi.\n";
-                    islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                     return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                 }
             }

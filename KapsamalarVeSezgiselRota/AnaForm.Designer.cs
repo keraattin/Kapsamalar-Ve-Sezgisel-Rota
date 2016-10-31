@@ -39,6 +39,7 @@
             this.rd_el_ile = new System.Windows.Forms.RadioButton();
             this.rd_random = new System.Windows.Forms.RadioButton();
             this.chk_rota = new System.Windows.Forms.CheckBox();
+            this.lbl_kapsamalar = new System.Windows.Forms.Label();
             this.grb_baslangic.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -155,11 +156,21 @@
             this.chk_rota.Text = "Sadece rota kullan";
             this.chk_rota.UseVisualStyleBackColor = true;
             // 
+            // lbl_kapsamalar
+            // 
+            this.lbl_kapsamalar.AutoSize = true;
+            this.lbl_kapsamalar.Location = new System.Drawing.Point(521, 49);
+            this.lbl_kapsamalar.Name = "lbl_kapsamalar";
+            this.lbl_kapsamalar.Size = new System.Drawing.Size(99, 17);
+            this.lbl_kapsamalar.TabIndex = 17;
+            this.lbl_kapsamalar.Text = "Kapsamalar = ";
+            // 
             // AnaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1109, 700);
+            this.Controls.Add(this.lbl_kapsamalar);
             this.Controls.Add(this.grb_baslangic);
             this.Controls.Add(this.btn_ilerle);
             this.Controls.Add(this.btn_islem_basla);
@@ -169,6 +180,7 @@
             this.grb_baslangic.ResumeLayout(false);
             this.grb_baslangic.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -184,5 +196,6 @@
         private System.Windows.Forms.RadioButton rd_random;
         private System.Windows.Forms.RadioButton rd_el_ile;
         private System.Windows.Forms.CheckBox chk_rota;
+        private System.Windows.Forms.Label lbl_kapsamalar;
     }
 }
