@@ -459,8 +459,16 @@ namespace KapsamalarVeSezgiselRota
             }
             else if(chk_rota.Checked == true) //Sadece sezgisel rota algoritmasi ile indirgeme yapiliyor.
             {
-                rota_algoritmasi_ile_sil(matris);
-                return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
+                if(mutlak_satir_sutun_bul_ve_sil(matris)==0)
+                {
+                    rota_algoritmasi_ile_sil(matris);
+                    return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
+                }
+                else
+                {
+                    return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
+                }
+
             }
             else
             {
@@ -531,7 +539,7 @@ namespace KapsamalarVeSezgiselRota
 
             /*Yapilan islemlerin yazilacagi RichTextBox tanimlaniyor.*/
             rtb.Size = new Size ( 600 , 400 ); //Boyutu belirlendi.
-            rtb.Top = (matris1.Height) + 120; //Ustten ne kadar asagida olacagi belirlendi.
+            rtb.Top = (matris1.Height) + 100; //Ustten ne kadar asagida olacagi belirlendi.
             rtb.Left = 20; //Soldan ne kadar sagda olacagi belirlendi
             rtb.Text += islem_sayisi.ToString() +" => Islemlere baslandi \n"; //Baslangic yazisi yazildi.
             rtb.Visible = true; //RichTextBox'un gorunurlugu acildi.
