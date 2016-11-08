@@ -181,6 +181,37 @@ namespace KapsamalarVeSezgiselRota
 
         }
 
+        /*Sadece sutunlarin agiliklarini hesaplayan fonksiyon.*/
+        public void sadece_sutun_agirlik_hesapla(DataGridView matris)
+        {
+            int satir = matris.Rows.Count - 1; //satir sayisi tutulan degisken tanimlandi.
+            int sutun = matris.Columns.Count - 1; //sutun sayisi tutulan degsiken tanimlandi.
+
+            int toplam = 0;
+            int i = 0;
+            int j = 0;
+
+
+            for (i = 0; i < sutun; i++)
+            {
+                for (j = 0; j < satir; j++)
+                {
+                    /*j.satir i.sutun diyerek kolon tarama gerçeklestirildi.*/
+                    if (Convert.ToInt32(matris.Rows[j].Cells[i].Value) == 1) //j.satir i.sutun daki kutunun degeri 1 e esitmi kontrol edildi.
+                    {
+                        toplam++;  //Toplam 1 arttirildi.
+                        matris.Rows[j].Cells[i].Style = new DataGridViewCellStyle { BackColor = Color.Blue, ForeColor = Color.White }; //Degeri 1 olan kolonlara yeni stil eklendi.
+                    }
+                }
+                matris.Rows[satir].Cells[i].ReadOnly = true; //1 lerin sayisinin yazildigi sutun sadece okunabilir yapildi.
+                matris.Rows[satir].Cells[i].Style = new DataGridViewCellStyle { BackColor = Color.Red, ForeColor = Color.White }; //1 lerin yazıldıgı kolona yeni stil eklendi.
+                matris.Rows[satir].Cells[i].Value = toplam;  //1 lerin sayisi en alt sutunlara yazildi.
+                toplam = 0; //Toplam degiskeni diger degerlere bakabilmek icin sifirlandi.
+            }
+
+        }
+
+
         public int mutlak_satir_sutun_bul_ve_sil(DataGridView matris)
         {
             int satir = matris.Rows.Count - 1; //Satir sayisi tutulan degisken tanimlandi.
@@ -461,6 +492,7 @@ namespace KapsamalarVeSezgiselRota
             {
                 if(mutlak_satir_sutun_bul_ve_sil(matris)==0)
                 {
+                    agirlik_hesapla(matris); //Rota algoritmasinin calisabilmesi icin satir agirliklari hesaplanmali.
                     rota_algoritmasi_ile_sil(matris);
                     return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                 }
@@ -481,6 +513,7 @@ namespace KapsamalarVeSezgiselRota
                         if (sutun_kapsamalarina_gore_sil(matris) == 0)
                         {
                             rtb.Text += " , Kapsanan sutun bulunamadi ";
+                            agirlik_hesapla(matris); //Rota algoritmasinin calisabilmesi icin satir agirliklari hesaplanmali.
                             rota_algoritmasi_ile_sil(matris); //Hicbir fonksiyon calismadiysa rota algoritmasina gore en dusuk agirligi olan satir siliniyor.
                             return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                         }
@@ -527,7 +560,7 @@ namespace KapsamalarVeSezgiselRota
         /*Islemleri baslatan button*/
         private void btn_islem_basla_Click(object sender, EventArgs e)
         {
-            agirlik_hesapla(matris1); //Satir sutun agirliklari hesaplandi.
+            sadece_sutun_agirlik_hesapla(matris1); //Satir sutun agirliklari hesaplandi.
 
             /*Ikinci matris olusturuluyor ve 1.Matrisdeki degelerler 2.Matrise aktariliyor.*/
             int satir = matris1.Rows.Count - 1;
@@ -535,7 +568,7 @@ namespace KapsamalarVeSezgiselRota
             int x = matris1.Width; //1.Matrisin genislik degeri bulunuyor.
             matris_olustur(satir, sutun, x + 40, 80, matris2); //Matris olusturma fonksiyonu cagirilip 2.Matris olusturuluyor.
             degerleri_aktar(matris1, matris2); //Matris1 deki degerler Matris2 ye aktarildi.
-            agirlik_hesapla(matris2); //Satir sutun agirliklari hesaplandi.
+            sadece_sutun_agirlik_hesapla(matris2); //Satir sutun agirliklari hesaplandi.
 
             /*Yapilan islemlerin yazilacagi RichTextBox tanimlaniyor.*/
             rtb.Size = new Size ( 600 , 400 ); //Boyutu belirlendi.
@@ -560,9 +593,9 @@ namespace KapsamalarVeSezgiselRota
         {
             if (islem_yap(matris2) == 1) //2.Matriste sonuc bulunmamis ise diger matriste islem yapiliyor.
             {
-                agirlik_hesapla(matris2);
+                sadece_sutun_agirlik_hesapla(matris2);
                 islem_yap(matris1);
-                agirlik_hesapla(matris1);
+                sadece_sutun_agirlik_hesapla(matris1);
             }
 
         }

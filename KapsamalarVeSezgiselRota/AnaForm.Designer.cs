@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AnaForm));
             this.btn_ilerle = new System.Windows.Forms.Button();
             this.btn_islem_basla = new System.Windows.Forms.Button();
             this.lbl_sutun = new System.Windows.Forms.Label();
@@ -36,9 +37,9 @@
             this.txt_satir = new System.Windows.Forms.TextBox();
             this.btn_olustur = new System.Windows.Forms.Button();
             this.grb_baslangic = new System.Windows.Forms.GroupBox();
-            this.rd_el_ile = new System.Windows.Forms.RadioButton();
-            this.rd_random = new System.Windows.Forms.RadioButton();
             this.chk_rota = new System.Windows.Forms.CheckBox();
+            this.rd_random = new System.Windows.Forms.RadioButton();
+            this.rd_el_ile = new System.Windows.Forms.RadioButton();
             this.lbl_kapsamalar = new System.Windows.Forms.Label();
             this.grb_baslangic.SuspendLayout();
             this.SuspendLayout();
@@ -124,16 +125,15 @@
             this.grb_baslangic.TabStop = false;
             this.grb_baslangic.Text = "Başlangıç";
             // 
-            // rd_el_ile
+            // chk_rota
             // 
-            this.rd_el_ile.AutoSize = true;
-            this.rd_el_ile.Location = new System.Drawing.Point(119, 23);
-            this.rd_el_ile.Name = "rd_el_ile";
-            this.rd_el_ile.Size = new System.Drawing.Size(140, 21);
-            this.rd_el_ile.TabIndex = 13;
-            this.rd_el_ile.TabStop = true;
-            this.rd_el_ile.Text = "Değerleri el ile gir";
-            this.rd_el_ile.UseVisualStyleBackColor = true;
+            this.chk_rota.AutoSize = true;
+            this.chk_rota.Location = new System.Drawing.Point(117, 72);
+            this.chk_rota.Name = "chk_rota";
+            this.chk_rota.Size = new System.Drawing.Size(148, 21);
+            this.chk_rota.TabIndex = 15;
+            this.chk_rota.Text = "Sadece rota kullan";
+            this.chk_rota.UseVisualStyleBackColor = true;
             // 
             // rd_random
             // 
@@ -146,15 +146,16 @@
             this.rd_random.Text = "Random atansın";
             this.rd_random.UseVisualStyleBackColor = true;
             // 
-            // chk_rota
+            // rd_el_ile
             // 
-            this.chk_rota.AutoSize = true;
-            this.chk_rota.Location = new System.Drawing.Point(117, 72);
-            this.chk_rota.Name = "chk_rota";
-            this.chk_rota.Size = new System.Drawing.Size(148, 21);
-            this.chk_rota.TabIndex = 15;
-            this.chk_rota.Text = "Sadece rota kullan";
-            this.chk_rota.UseVisualStyleBackColor = true;
+            this.rd_el_ile.AutoSize = true;
+            this.rd_el_ile.Location = new System.Drawing.Point(119, 23);
+            this.rd_el_ile.Name = "rd_el_ile";
+            this.rd_el_ile.Size = new System.Drawing.Size(140, 21);
+            this.rd_el_ile.TabIndex = 13;
+            this.rd_el_ile.TabStop = true;
+            this.rd_el_ile.Text = "Değerleri el ile gir";
+            this.rd_el_ile.UseVisualStyleBackColor = true;
             // 
             // lbl_kapsamalar
             // 
@@ -174,6 +175,7 @@
             this.Controls.Add(this.grb_baslangic);
             this.Controls.Add(this.btn_ilerle);
             this.Controls.Add(this.btn_islem_basla);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AnaForm";
             this.Text = "AnaForm";
             this.Load += new System.EventHandler(this.AnaForm_Load);
