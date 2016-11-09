@@ -485,7 +485,7 @@ namespace KapsamalarVeSezgiselRota
         {
             if ((matris.Rows.Count-1) < 1 || (matris.Columns.Count-1) < 1) //Islemler bitmismi kontrol ediliyor.
             {
-                rtb.Text += "\n\n ISLEM SONLANDI \n\n";
+               if(matris == matris2) rtb.Text += "\n\n ISLEM SONLANDI \n\n";
                 return 0; //Islem sonlandigi ve bir daha islem yapmayacagi icin 0 donduruyor.
             }
             else if(chk_rota.Checked == true) //Sadece sezgisel rota algoritmasi ile indirgeme yapiliyor.
@@ -506,13 +506,13 @@ namespace KapsamalarVeSezgiselRota
             {
                 if (mutlak_satir_sutun_bul_ve_sil(matris) == 0)
                 {
-                    rtb.Text += "\nMutlak sutun bulunamadi ";
+                   if(matris == matris2) rtb.Text += "\nMutlak sutun bulunamadi ";
                     if (satir_kapsamalarina_gore_sil(matris) == 0)
                     {
-                        rtb.Text += " , Kapsanan satir bulunamadi ";
+                      if(matris == matris2)  rtb.Text += " , Kapsanan satir bulunamadi ";
                         if (sutun_kapsamalarina_gore_sil(matris) == 0)
                         {
-                            rtb.Text += " , Kapsanan sutun bulunamadi ";
+                           if(matris == matris2) rtb.Text += " , Kapsanan sutun bulunamadi ";
                             agirlik_hesapla(matris); //Rota algoritmasinin calisabilmesi icin satir agirliklari hesaplanmali.
                             rota_algoritmasi_ile_sil(matris); //Hicbir fonksiyon calismadiysa rota algoritmasina gore en dusuk agirligi olan satir siliniyor.
                             return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
