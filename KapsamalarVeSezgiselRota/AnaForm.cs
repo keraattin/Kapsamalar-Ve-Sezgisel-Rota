@@ -419,11 +419,11 @@ namespace KapsamalarVeSezgiselRota
                         if (Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 0)
                         {
                             sol_kapsar++; //Sol tarafta 1 sag tarafta 0 oldugu icin sol_kapsar degiskeni arttirildi.
-                            if (sag_kapsar > 0) //Sag tarafta onceden 1 elemanı bulunmusmu kontrol ediliyor. 
+                            if (sag_kapsar > 0 || sol_kapsar > 1) //Sag tarafta onceden 1 elemanı bulunmusmu kontrol ediliyor. 
                                 break; //Sag tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
 
                             /*Daha onceden sag tarafta 1 elemanı bulunmadiysa devam ediliyor.*/
-                            sol_kapsar++; // Sol taraf , sag tarafi kapsayacagi icin sol_kapsar degiskeni arttiriliyor.
+                           
                         }
                         else if (Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 1)
                         {
@@ -431,39 +431,38 @@ namespace KapsamalarVeSezgiselRota
                         else if (Convert.ToInt32(matris.Rows[k].Cells[j].Value) == 1 && Convert.ToInt32(matris.Rows[k].Cells[i].Value) == 0)
                         {
                             sag_kapsar++; //Sag tarafta 1 sol tarafta 0 oldugu icin sag_kapsar degiskeni arttirildi.
-                            if (sol_kapsar > 0) //Sol tarafta daha onceden 1 elemanı bulunmusmu kontrol ediliyor. 
+                            if (sol_kapsar > 0 || sag_kapsar > 1) //Sol tarafta daha onceden 1 elemanı bulunmusmu kontrol ediliyor. 
                                 break; //Sol tarafta onceden 1 elemanı bulunmussa kapsama yoktur
 
                             /*Daha onceden sol tarafta 1 elemanı bulunmadiysa devam ediliyor.*/
-                            sag_kapsar++; // Sag taraf , sol tarafi kapsayacagi icin sag_kapsar degiskeni arttiriliyor.
                         }
                     }
-                    if (sol_kapsar > 0 && sag_kapsar == 0 || (sol_kapsar == 0 && sag_kapsar == 0))
+                    if (sol_kapsar == 1 && sag_kapsar == 0)
                     {
-                        string sutun_adi = matris.Columns[j].Name; //Kapsanan sutunun adi bulunuyor.
-                        matris.Columns.Remove(sutun_adi); //Kapsanan sutun siliniyor.
-
+                        string kapsanan_sutun_adi = matris.Columns[j].Name; //Kapsanan sutunun adi bulunuyor.
                         string kapsayan_sutun_adi = matris.Columns[i].Name; //Kapsayan sutunun adi bulunuyor.
 
-                        if(matris == matris2)  //Matris2 üzerinde islem yapiliyorsa islem sayisini arttir ve yazdir.
+                        matris.Columns.Remove(kapsayan_sutun_adi); //Sutun degeri 1 fazla oldugu icin kapsayan sutun siliniyor.
+
+                        if (matris == matris2)  //Matris2 üzerinde islem yapiliyorsa islem sayisini arttir ve yazdir.
                         {
                             islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
-                            rtb.Text += "\n" + islem_sayisi + " => Sutun kapsamalarina gore " + kapsayan_sutun_adi + " sutunu " + sutun_adi + " sutununu kapsadi ve " + sutun_adi + " sutunu silindi.\n";
+                            rtb.Text += "\n" + islem_sayisi + " => Sutun kapsamalarina gore " + kapsayan_sutun_adi + " sutunu " + kapsanan_sutun_adi + " sutununu kapsadi ve 1 fazla degere sahip oldugu icin kapsayan " + kapsayan_sutun_adi + " sutunu silindi.\n";
                         }
 
                         return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                     }
-                    else if (sag_kapsar > 0 && sol_kapsar == 0)
+                    else if (sag_kapsar == 1 && sol_kapsar == 0)
                     {
-                        string sutun_adi = matris.Columns[i].Name; //Kapsanan sutunun adi bulunuyor.
-                        matris.Columns.Remove(sutun_adi); //Kapsanan sutun siliniyor.
-
+                        string kapsanan_sutun_adi = matris.Columns[i].Name; //Kapsanan sutunun adi bulunuyor.
                         string kapsayan_sutun_adi = matris.Columns[j].Name; //Kapsayan sutunun ismi bulunuyor.
+
+                        matris.Columns.Remove(kapsayan_sutun_adi); //Sutun degeri 1 fazla oldugu icin kapsanan sutun siliniyor.
 
                         if (matris == matris2) //Matris2 üzerinde islem yapiliyorsa islem sayisini arttir ve yazdir.
                         {
                             islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
-                            rtb.Text += "\n" + islem_sayisi + " => Sutun kapsamalarina gore " + kapsayan_sutun_adi + " sutunu " + sutun_adi + " sutununu kapsadi ve " + sutun_adi + " sutunu silindi.\n";
+                            rtb.Text += "\n" + islem_sayisi + " => Sutun kapsamalarina gore " + kapsayan_sutun_adi + " sutunu " + kapsanan_sutun_adi + " sutununu kapsadi ve 1 fazla degere sahip oldugu icin kapsayan " + kapsayan_sutun_adi + " sutunu silindi.\n";
                         }
 
                         return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
@@ -498,7 +497,7 @@ namespace KapsamalarVeSezgiselRota
                 }
                 else
                 {
-                    return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
+                    return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor. 
                 }
 
             }
@@ -584,7 +583,7 @@ namespace KapsamalarVeSezgiselRota
 
             matris_olustur(satir, sutun, x+x+60, 80, matris3); //Matris olusturma fonksiyonu cagirilip 3.Matris olusturuluyor.
             degerleri_aktar(matris1, matris3); //Matris1 deki degerler Matris3 ye aktarildi.
-            agirlik_hesapla(matris3); //Matris3 deki agirliklar hesaplaniyor
+            sadece_sutun_agirlik_hesapla(matris3); //Matris3 deki agirliklar hesaplaniyor
 
             islem_yap(matris2); //Matris2'nin onden gidebilmesi icin islemler onceden basliyor.
         }
