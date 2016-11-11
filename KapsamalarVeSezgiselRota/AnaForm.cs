@@ -57,7 +57,7 @@ namespace KapsamalarVeSezgiselRota
             {
                 matris.Rows.Add(); //Satir ekleme.
                 matris.Rows[j].Height = 20; //Satirlarin yuksekligi ayarlandi.
-                matris.Rows[j].HeaderCell.Value = "y" + j; //Satirlarin basina isim verildi.
+                matris.Rows[j].HeaderCell.Value = "y" + j.ToString(); //Satirlarin basina isim verildi.
                 matris.Rows[j].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight; //Satir basindaki yazilar saga dayali hale getirildi.
             }
             matris.Rows.Add(); //Ağırlık satiri ekleniyor.
@@ -311,10 +311,8 @@ namespace KapsamalarVeSezgiselRota
             }
 
             string sutun_adi = matris.Columns[mutlak_sutun].Name; //Mutlak sutunun adi bulunuyor.
-            matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
 
             DataGridViewRow satir_adi = matris.Rows[mutlak_satir]; //Silinecek satirin bilgileri aliniyor.
-            matris.Rows.RemoveAt(mutlak_satir); //Mutlak satir siliniyor.
 
             if(matris == matris2)
             {
@@ -322,6 +320,10 @@ namespace KapsamalarVeSezgiselRota
                 islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                 rtb.Text += "\n" + islem_sayisi + " => "+ satir_adi.HeaderCell.Value +" Mutlak satir olarak bulundu ve "+ satir_adi.HeaderCell.Value + " satiri ve "+sutun_adi+" sutun silindi.\n";
             }
+
+            matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
+            matris.Rows.RemoveAt(mutlak_satir); //Mutlak satir siliniyor.
+
             return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
         }
 
@@ -365,14 +367,15 @@ namespace KapsamalarVeSezgiselRota
             }
 
             DataGridViewRow silinecek_satir = matris.Rows[en_kucuk.sira]; //Silinecek satir belirleniyor.
-            matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
 
             if(matris == matris2)
             {
                 islem_sayisi++;
                 rtb.Text += "\n" + islem_sayisi + " => Rota algoritmasına gore " + silinecek_satir.HeaderCell.Value + " satiri en dusuk agirlik degerine sahip oldugu icin silindi.\n";
             }
-            
+
+            matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
+
         }
 
 
@@ -391,11 +394,14 @@ namespace KapsamalarVeSezgiselRota
                (k,j= = 2,0 | 2,1 | 2,2  
                
              Seklinde karsilastirma yapiliyor.*/
-            for (int i = 0; i < satir; i++)
+            int i = 0;
+            int j = 0;
+            int k = 0;
+            for (i = 0; i < satir; i++)
             {
-                for (int j = i + 1; j < satir; j++)
+                for (j = i + 1; j < satir; j++)
                 {
-                    for (int k = 0; k < sutun; k++)
+                    for (k = 0; k < sutun; k++)
                     {
                         if (Convert.ToInt32(matris.Rows[i].Cells[k].Value) == 1 && Convert.ToInt32(matris.Rows[j].Cells[k].Value) == 0)
                         {
@@ -404,7 +410,7 @@ namespace KapsamalarVeSezgiselRota
                                 break; //Alt tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
 
                             /*Daha onceden alt tarafta 1 elemanı bulunmadiysa devam ediliyor.*/
-                            ust_kapsar++; //Ust taraf , alt tarafi kapsayacagi icin ust_kapsar degiskeni arttiriliyor.
+                           // ust_kapsar++; //Ust taraf , alt tarafi kapsayacagi icin ust_kapsar degiskeni arttiriliyor.
                         }
                         else if (Convert.ToInt32(matris.Rows[j].Cells[k].Value) == 1 && Convert.ToInt32(matris.Rows[i].Cells[k].Value) == 1)
                         {
@@ -416,13 +422,12 @@ namespace KapsamalarVeSezgiselRota
                                 break; //Ust tarafta onceden 1 elemanı bulunmussa kapsama yoktur.
 
                             /*Daha onceden ust tarafta 1 elemanı bulunmadiysa devam ediliyor.*/
-                            alt_kapsar++; //Alt taraf , ust tarafi kapsayacagi icin alt_kapsar degiskeni arttiriliyor.
+                           // alt_kapsar++; //Alt taraf , ust tarafi kapsayacagi icin alt_kapsar degiskeni arttiriliyor.
                         }
                     }
                     if (ust_kapsar > 0 && alt_kapsar == 0 || ust_kapsar == 0 && alt_kapsar == 0)
                     {
                         DataGridViewRow silinecek_satir = matris.Rows[j]; //Silinecek satir belirleniyor.
-                        matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
                         DataGridViewRow kapsayan_satir = matris.Rows[i];
                         //MessageBox.Show("Kapsayan satir = "+i+"\n header cell = "+kapsayan_satir.HeaderCell.Value+"\nsilinecek satir = " + j + " \n header cell = " + silinecek_satir.HeaderCell.Value);
 
@@ -432,12 +437,13 @@ namespace KapsamalarVeSezgiselRota
                             rtb.Text += "\n" + islem_sayisi + " => Satir kapsamalarina gore " + kapsayan_satir.HeaderCell.Value + " satiri " + silinecek_satir.HeaderCell.Value + "satirini kapsadi ve " + silinecek_satir.HeaderCell.Value + " satiri silindi. \n";
                         }
 
+                        matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
+
                         return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                     }
                     else if (alt_kapsar > 0 && ust_kapsar == 0)
                     {
                         DataGridViewRow silinecek_satir = matris.Rows[i]; //Silinecek satir belirleniyor.
-                        matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
                         DataGridViewRow kapsayan_satir = matris.Rows[j];
                         //MessageBox.Show("Kapsayan satir = " + j + "\n header cell = " + kapsayan_satir.HeaderCell.Value + "\nsilinecek satir = " + i + " \n header cell = " + silinecek_satir.HeaderCell.Value);
 
@@ -446,6 +452,8 @@ namespace KapsamalarVeSezgiselRota
                             islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                             rtb.Text += "\n" + islem_sayisi + " => Satir kapsamalarina gore " + kapsayan_satir.HeaderCell.Value + " satiri " + silinecek_satir.HeaderCell.Value + " satirini kapsadi ve " + silinecek_satir.HeaderCell.Value + " satiri silindi. \n";
                         }
+
+                        matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
 
                         return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                     }
@@ -511,13 +519,13 @@ namespace KapsamalarVeSezgiselRota
                         string kapsanan_sutun_adi = matris.Columns[j].Name; //Kapsanan sutunun adi bulunuyor.
                         string kapsayan_sutun_adi = matris.Columns[i].Name; //Kapsayan sutunun adi bulunuyor.
 
-                        matris.Columns.Remove(kapsayan_sutun_adi); //Sutun degeri 1 fazla oldugu icin kapsayan sutun siliniyor.
-
                         if (matris == matris2)  //Matris2 üzerinde islem yapiliyorsa islem sayisini arttir ve yazdir.
                         {
                             islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                             rtb.Text += "\n" + islem_sayisi + " => Sutun kapsamalarina gore " + kapsayan_sutun_adi + " sutunu " + kapsanan_sutun_adi + " sutununu kapsadi ve 1 fazla degere sahip oldugu icin kapsayan " + kapsayan_sutun_adi + " sutunu silindi.\n";
                         }
+
+                        matris.Columns.Remove(kapsayan_sutun_adi); //Sutun degeri 1 fazla oldugu icin kapsayan sutun siliniyor.
 
                         return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                     }
@@ -526,13 +534,13 @@ namespace KapsamalarVeSezgiselRota
                         string kapsanan_sutun_adi = matris.Columns[i].Name; //Kapsanan sutunun adi bulunuyor.
                         string kapsayan_sutun_adi = matris.Columns[j].Name; //Kapsayan sutunun ismi bulunuyor.
 
-                        matris.Columns.Remove(kapsayan_sutun_adi); //Sutun degeri 1 fazla oldugu icin kapsanan sutun siliniyor.
-
                         if (matris == matris2) //Matris2 üzerinde islem yapiliyorsa islem sayisini arttir ve yazdir.
                         {
                             islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
                             rtb.Text += "\n" + islem_sayisi + " => Sutun kapsamalarina gore " + kapsayan_sutun_adi + " sutunu " + kapsanan_sutun_adi + " sutununu kapsadi ve 1 fazla degere sahip oldugu icin kapsayan " + kapsayan_sutun_adi + " sutunu silindi.\n";
                         }
+
+                        matris.Columns.Remove(kapsayan_sutun_adi); //Sutun degeri 1 fazla oldugu icin kapsanan sutun siliniyor.
 
                         return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                     }
@@ -572,7 +580,7 @@ namespace KapsamalarVeSezgiselRota
                 if(mutlak_satir_sutun_bul_ve_sil(matris)==0)
                 {
                     sadece_sutun_agirlik_hesapla(matris);
-                    sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris1);
+                    //sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris1);
                     sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris); //Rota algoritmasinin calisabilmesi icin satir agirliklari hesaplanmali.
                     rota_algoritmasi_ile_sil(matris);
                     agirliklari_temizle(matris); //Fonksyion calistiktan sonra diger agirliklarin gozukmesi icin eski agirliklar siliniyor.
@@ -596,7 +604,7 @@ namespace KapsamalarVeSezgiselRota
                         {
                            if(matris == matris2) rtb.Text += " , Kapsanan sutun bulunamadi ";
                             sadece_sutun_agirlik_hesapla(matris);
-                            sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris1);
+                            //sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris1);
                             sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris); //Rota algoritmasinin calisabilmesi icin satir agirliklari hesaplanmali.
                             rota_algoritmasi_ile_sil(matris); //Hicbir fonksiyon calismadiysa rota algoritmasina gore en dusuk agirligi olan satir siliniyor.
                             agirliklari_temizle(matris);
