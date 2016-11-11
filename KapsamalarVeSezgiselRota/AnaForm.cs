@@ -551,6 +551,17 @@ namespace KapsamalarVeSezgiselRota
         /*Mutlak sutun , Satir kapsamasi , Sutun kapsamasi , Rota algoritmasi islemlerinin yapilmasi.*/
         public int islem_yap(DataGridView matris)
         {
+
+            /*Hic deger kalmamis ise o sutunu siliyor.*/
+            for (int i = 0; i < matris.Columns.Count - 1; i++)
+            {
+                if (Convert.ToInt32(matris.Rows[matris.Rows.Count - 1].Cells[i].Value) == 0)
+                {
+                    string sutun_adi = matris.Columns[i].Name; //Degeri 0 olan sutunun adi bulunuyor.
+                    matris.Columns.Remove(sutun_adi); //Sutun degeri 0 oldugu icin sutun siliniyor.
+                }
+            }
+
             if ((matris.Rows.Count-1) < 1 || (matris.Columns.Count-1) < 1) //Islemler bitmismi kontrol ediliyor.
             {
                if(matris == matris2) rtb.Text += "\n\n ISLEM SONLANDI \n\n";
