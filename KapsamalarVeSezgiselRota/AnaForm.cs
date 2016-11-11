@@ -211,6 +211,18 @@ namespace KapsamalarVeSezgiselRota
 
         }
 
+        /*Agirlik sutununu temizleme fonksiyonu*/
+        public void agirliklari_temizle(DataGridView matris)
+        {
+            int satir = matris.Rows.Count - 1;
+
+            for (int i = 0; i < satir; i++)
+            {
+                matris.Rows[i].Cells["agirlik"].Value = null;
+                matris.Rows[i].Cells["agirlik"].Style = new DataGridViewCellStyle { BackColor = Color.White , ForeColor = Color.Black };
+            }
+        }
+
         public void sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(DataGridView matris)
         {
             int satir = matris.Rows.Count - 1; //satir sayisi tutulan degisken tanimlandi.
@@ -232,6 +244,7 @@ namespace KapsamalarVeSezgiselRota
                 }
             }
 
+
             for (int i = 0; i < sutun; i++)
             {
                 if(Convert.ToInt32(matris.Rows[satir].Cells[i].Value) == ek) //En kucuk eleman mi diye kontrol ediliyor.
@@ -250,11 +263,13 @@ namespace KapsamalarVeSezgiselRota
                             }
                             matris.Rows[j].Cells["agirlik"].Value = satir * toplam; //Bulunan degerler satir sayisi ile carpilip agirlik sutununa yaziliyor.
                             matris.Rows[j].Cells["agirlik"].Style = new DataGridViewCellStyle { BackColor = Color.Green, ForeColor = Color.White };
+                            toplam = 0; //Toplam degiskeni diger islemlerde tekrar kullanılabilmesi icin sifirlaniyor.
+                            MessageBox.Show("Ilerle");
                         }
                     }
-                    toplam = 0; //Toplam degiskeni diger islemlerde tekrar kullanılabilmesi icin sifirlaniyor.
                 }
             }
+            
 
 
         }
@@ -315,7 +330,7 @@ namespace KapsamalarVeSezgiselRota
         /*En kucuk agirlikli satirin sirasi ve degerinin tutulacagi bir struct olusturuldu.*/
         public struct enKucuk
         {
-            public float deger;
+            public double deger;
             public int sira;
         };
 
@@ -323,29 +338,36 @@ namespace KapsamalarVeSezgiselRota
         public void rota_algoritmasi_ile_sil(DataGridView matris)
         {
             int satir_sayisi = matris.Rows.Count - 1;
-            float[] agirlik_degerleri = new float[satir_sayisi];
+            double[] agirlik_degerleri = new double[satir_sayisi];
 
             enKucuk en_kucuk; //enKucuk struct'indan bir nesne olusturuluyor.
-
-            /*Ilk eleman en kucuk olarak ataniyor.*/
-            en_kucuk.deger = (float)matris.Rows[0].Cells["agirlik"].Value;
+            en_kucuk.deger = 0;
             en_kucuk.sira = 0;
+
+            /*Ilk bulunan eleman en kucuk olarak ataniyor.*/
+            for (int i = 0; i < satir_sayisi; i++)
+            {
+                if (Convert.ToDouble(matris.Rows[i].Cells["agirlik"].Value) > 0)
+                {
+                    en_kucuk.deger = Convert.ToDouble(matris.Rows[i].Cells["agirlik"].Value);
+                    en_kucuk.sira = i;
+                    break;
+                }
+            }
 
             for (int i = 0; i < satir_sayisi; i++)
             {
-                agirlik_degerleri[i] = (float)matris.Rows[i].Cells["agirlik"].Value;/*Matrisdeki onceden hesaplanan agirlik degerleri diziye ataniyor.*/
-
-                if (agirlik_degerleri[i] < en_kucuk.deger) /*Dizinin o anki degeri enkucuk degerden kucukmu diye kontrol ediliyor.*/
+                if (Convert.ToDouble(matris.Rows[i].Cells["agirlik"].Value) > 0.0 && Convert.ToDouble(matris.Rows[i].Cells["agirlik"].Value) < en_kucuk.deger)
                 {
-                    en_kucuk.deger = agirlik_degerleri[i];  //en_kucuk struct'inin degerine bulunan kucuk deger ataniyor.
-                    en_kucuk.sira = i;  //en_kucuk struct'inin sirasina bulunan en kucuk degerin sirasi ataniyor.
+                    en_kucuk.deger = Convert.ToDouble(matris.Rows[i].Cells["agirlik"].Value);
+                    en_kucuk.sira = i;
                 }
-
             }
+
             DataGridViewRow silinecek_satir = matris.Rows[en_kucuk.sira]; //Silinecek satir belirleniyor.
             matris.Rows.Remove(silinecek_satir); //Belirlenen en kucuk satir siliniyor.
 
-            if(matris ==matris2)
+            if(matris == matris2)
             {
                 islem_sayisi++;
                 rtb.Text += "\n" + islem_sayisi + " => Rota algoritmasına gore " + silinecek_satir.HeaderCell.Value + " satiri en dusuk agirlik degerine sahip oldugu icin silindi.\n";
@@ -422,7 +444,7 @@ namespace KapsamalarVeSezgiselRota
                         if (matris == matris2) //Matris2 üzerinde islem yapiliyorsa islem sayisini arttir ve yazdir.
                         {
                             islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
-                            rtb.Text += "\n" + islem_sayisi + " => Satir kapsamalarina gore " + kapsayan_satir.HeaderCell.Value + " satiri " + silinecek_satir.HeaderCell.Value + " satirini kapsadi ve " + matris.Rows[i].HeaderCell.Value + " satiri silindi. \n";
+                            rtb.Text += "\n" + islem_sayisi + " => Satir kapsamalarina gore " + kapsayan_satir.HeaderCell.Value + " satiri " + silinecek_satir.HeaderCell.Value + " satirini kapsadi ve " + silinecek_satir.HeaderCell.Value + " satiri silindi. \n";
                         }
 
                         return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
@@ -538,8 +560,11 @@ namespace KapsamalarVeSezgiselRota
             {
                 if(mutlak_satir_sutun_bul_ve_sil(matris)==0)
                 {
+                    sadece_sutun_agirlik_hesapla(matris);
+                    sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris1);
                     sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris); //Rota algoritmasinin calisabilmesi icin satir agirliklari hesaplanmali.
                     rota_algoritmasi_ile_sil(matris);
+                    agirliklari_temizle(matris); //Fonksyion calistiktan sonra diger agirliklarin gozukmesi icin eski agirliklar siliniyor.
                     return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                 }
                 else
@@ -559,8 +584,12 @@ namespace KapsamalarVeSezgiselRota
                         if (sutun_kapsamalarina_gore_sil(matris) == 0)
                         {
                            if(matris == matris2) rtb.Text += " , Kapsanan sutun bulunamadi ";
+                            sadece_sutun_agirlik_hesapla(matris);
+                            sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris1);
                             sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris); //Rota algoritmasinin calisabilmesi icin satir agirliklari hesaplanmali.
                             rota_algoritmasi_ile_sil(matris); //Hicbir fonksiyon calismadiysa rota algoritmasina gore en dusuk agirligi olan satir siliniyor.
+                            agirliklari_temizle(matris);
+                      
                             return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                         }
                         else
@@ -640,10 +669,8 @@ namespace KapsamalarVeSezgiselRota
             if (islem_yap(matris2) == 1) //2.Matriste sonuc bulunmamis ise diger matriste islem yapiliyor.
             {
                 sadece_sutun_agirlik_hesapla(matris2);
-                sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris2);
                 islem_yap(matris1);
                 sadece_sutun_agirlik_hesapla(matris1);
-                sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris1);
             }
 
         }
