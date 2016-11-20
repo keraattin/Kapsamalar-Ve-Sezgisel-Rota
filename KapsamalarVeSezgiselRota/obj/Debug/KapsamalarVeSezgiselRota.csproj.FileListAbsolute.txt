@@ -7,3 +7,12 @@ C:\Users\Admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\Ka
 C:\Users\Admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.exe
 C:\Users\Admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.pdb
 C:\Users\Admin\documents\visual studio 2015\Projects\KapsamalarVeSezgiselRota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.csprojResolveAssemblyReference.cache
+C:\Users\&&\Documents\Visual Studio 2015\Projects\KapsamalarVeSezgiselRota\Kapsamalar-Ve-Sezgisel-Rota\KapsamalarVeSezgiselRota\bin\Debug\KapsamalarVeSezgiselRota.exe.config
+C:\Users\&&\Documents\Visual Studio 2015\Projects\KapsamalarVeSezgiselRota\Kapsamalar-Ve-Sezgisel-Rota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.exe
+C:\Users\&&\Documents\Visual Studio 2015\Projects\KapsamalarVeSezgiselRota\Kapsamalar-Ve-Sezgisel-Rota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.pdb
+C:\Users\&&\Documents\Visual Studio 2015\Projects\KapsamalarVeSezgiselRota\Kapsamalar-Ve-Sezgisel-Rota\KapsamalarVeSezgiselRota\bin\Debug\KapsamalarVeSezgiselRota.exe
+C:\Users\&&\Documents\Visual Studio 2015\Projects\KapsamalarVeSezgiselRota\Kapsamalar-Ve-Sezgisel-Rota\KapsamalarVeSezgiselRota\bin\Debug\KapsamalarVeSezgiselRota.pdb
+C:\Users\&&\Documents\Visual Studio 2015\Projects\KapsamalarVeSezgiselRota\Kapsamalar-Ve-Sezgisel-Rota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.csprojResolveAssemblyReference.cache
+C:\Users\&&\Documents\Visual Studio 2015\Projects\KapsamalarVeSezgiselRota\Kapsamalar-Ve-Sezgisel-Rota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.AnaForm.resources
+C:\Users\&&\Documents\Visual Studio 2015\Projects\KapsamalarVeSezgiselRota\Kapsamalar-Ve-Sezgisel-Rota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.Properties.Resources.resources
+C:\Users\&&\Documents\Visual Studio 2015\Projects\KapsamalarVeSezgiselRota\Kapsamalar-Ve-Sezgisel-Rota\KapsamalarVeSezgiselRota\obj\Debug\KapsamalarVeSezgiselRota.csproj.GenerateResource.Cache

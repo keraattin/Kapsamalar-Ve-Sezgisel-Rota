@@ -310,18 +310,34 @@ namespace KapsamalarVeSezgiselRota
                 }
             }
 
-            string sutun_adi = matris.Columns[mutlak_sutun].Name; //Mutlak sutunun adi bulunuyor.
+            /*Mutlak satir icerisinde bulunan 1 degerine sahip sutunlarin silinmesi.*/
+            for (int i = 0; i < matris.Columns.Count-1; i++)
+            {
+                if (Convert.ToInt32(matris.Rows[mutlak_satir].Cells[i].Value) == 1)
+                {
+                    string silinecek_sutun_adi = matris.Columns[i].Name; //Silinecek satirin bilgileri aliniyor.
+                    MessageBox.Show(silinecek_sutun_adi);
+                    if(matris == matris2)
+                    {
+                        rtb.Text += "\n " + silinecek_sutun_adi;
+                    }
+                    matris.Columns.Remove(silinecek_sutun_adi);
+                    i = i - 1;
+                }
+            }
+
+            //string sutun_adi = matris.Columns[mutlak_sutun].Name; //Mutlak sutunun adi bulunuyor.
+            //matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
 
             DataGridViewRow satir_adi = matris.Rows[mutlak_satir]; //Silinecek satirin bilgileri aliniyor.
 
-            if(matris == matris2)
+            if (matris == matris2)
             {
                 lbl_kapsamalar.Text += satir_adi.HeaderCell.Value + " "; //Kapsamalar yaziliyor.
                 islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
-                rtb.Text += "\n" + islem_sayisi + " => "+ satir_adi.HeaderCell.Value +" Mutlak satir olarak bulundu ve "+ satir_adi.HeaderCell.Value + " satiri ve "+sutun_adi+" sutun silindi.\n";
+                rtb.Text += "\n" + islem_sayisi + " => "+ satir_adi.HeaderCell.Value +" Mutlak satir olarak bulundu ve "+ satir_adi.HeaderCell.Value + " satiri ve  sutun silindi.\n";
             }
 
-            matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
             matris.Rows.RemoveAt(mutlak_satir); //Mutlak satir siliniyor.
 
             return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
