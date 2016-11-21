@@ -310,24 +310,6 @@ namespace KapsamalarVeSezgiselRota
                 }
             }
 
-            /*Mutlak satir icerisinde bulunan 1 degerine sahip sutunlarin silinmesi.*/
-            for (int i = 0; i < matris.Columns.Count-1; i++)
-            {
-                if (Convert.ToInt32(matris.Rows[mutlak_satir].Cells[i].Value) == 1)
-                {
-                    string silinecek_sutun_adi = matris.Columns[i].Name; //Silinecek satirin bilgileri aliniyor.
-                    MessageBox.Show(silinecek_sutun_adi);
-                    if(matris == matris2)
-                    {
-                        rtb.Text += "\n " + silinecek_sutun_adi;
-                    }
-                    matris.Columns.Remove(silinecek_sutun_adi);
-                    i = i - 1;
-                }
-            }
-
-            //string sutun_adi = matris.Columns[mutlak_sutun].Name; //Mutlak sutunun adi bulunuyor.
-            //matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
 
             DataGridViewRow satir_adi = matris.Rows[mutlak_satir]; //Silinecek satirin bilgileri aliniyor.
 
@@ -335,9 +317,25 @@ namespace KapsamalarVeSezgiselRota
             {
                 lbl_kapsamalar.Text += satir_adi.HeaderCell.Value + " "; //Kapsamalar yaziliyor.
                 islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
-                rtb.Text += "\n" + islem_sayisi + " => "+ satir_adi.HeaderCell.Value +" Mutlak satir olarak bulundu ve "+ satir_adi.HeaderCell.Value + " satiri ve  sutun silindi.\n";
+                rtb.Text += "\n" + islem_sayisi + " => " + satir_adi.HeaderCell.Value + " Mutlak satir olarak bulundu ve " + satir_adi.HeaderCell.Value + " satiri ve ";
             }
 
+            /*Mutlak satir icerisinde bulunan 1 degerine sahip sutunlarin silinmesi.*/
+            for (int i = 0; i < matris.Columns.Count-1; i++)
+            {
+                if (Convert.ToInt32(matris.Rows[mutlak_satir].Cells[i].Value) == 1)
+                {
+                    string silinecek_sutun_adi = matris.Columns[i].Name; //Silinecek satirin bilgileri aliniyor.
+                    if(matris == matris2)
+                    {
+                        rtb.Text += " " + silinecek_sutun_adi + " , ";
+                    }
+                    matris.Columns.Remove(silinecek_sutun_adi); //Bulunan sutun siliniyor.
+                    i = i - 1; //i degeri kaldığı yerden devam etmesi icin 1 eksiltiliyor.
+                }
+            }
+
+            rtb.Text += "Sutunlari silindi.";
             matris.Rows.RemoveAt(mutlak_satir); //Mutlak satir siliniyor.
 
             return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
