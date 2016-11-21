@@ -46,9 +46,10 @@
             // 
             // btn_ilerle
             // 
-            this.btn_ilerle.Location = new System.Drawing.Point(440, 23);
+            this.btn_ilerle.Location = new System.Drawing.Point(330, 19);
+            this.btn_ilerle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_ilerle.Name = "btn_ilerle";
-            this.btn_ilerle.Size = new System.Drawing.Size(75, 50);
+            this.btn_ilerle.Size = new System.Drawing.Size(56, 41);
             this.btn_ilerle.TabIndex = 14;
             this.btn_ilerle.Text = "İlerle";
             this.btn_ilerle.UseVisualStyleBackColor = true;
@@ -56,9 +57,10 @@
             // 
             // btn_islem_basla
             // 
-            this.btn_islem_basla.Location = new System.Drawing.Point(359, 23);
+            this.btn_islem_basla.Location = new System.Drawing.Point(269, 19);
+            this.btn_islem_basla.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_islem_basla.Name = "btn_islem_basla";
-            this.btn_islem_basla.Size = new System.Drawing.Size(75, 50);
+            this.btn_islem_basla.Size = new System.Drawing.Size(56, 41);
             this.btn_islem_basla.TabIndex = 13;
             this.btn_islem_basla.Text = "İsleme basla";
             this.btn_islem_basla.UseVisualStyleBackColor = true;
@@ -67,42 +69,49 @@
             // lbl_sutun
             // 
             this.lbl_sutun.AutoSize = true;
-            this.lbl_sutun.Location = new System.Drawing.Point(68, 21);
+            this.lbl_sutun.Location = new System.Drawing.Point(51, 17);
+            this.lbl_sutun.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_sutun.Name = "lbl_sutun";
-            this.lbl_sutun.Size = new System.Drawing.Size(45, 17);
+            this.lbl_sutun.Size = new System.Drawing.Size(35, 13);
             this.lbl_sutun.TabIndex = 12;
             this.lbl_sutun.Text = "Sütun";
             // 
             // lbl_satir
             // 
             this.lbl_satir.AutoSize = true;
-            this.lbl_satir.Location = new System.Drawing.Point(11, 21);
+            this.lbl_satir.Location = new System.Drawing.Point(8, 17);
+            this.lbl_satir.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_satir.Name = "lbl_satir";
-            this.lbl_satir.Size = new System.Drawing.Size(37, 17);
+            this.lbl_satir.Size = new System.Drawing.Size(28, 13);
             this.lbl_satir.TabIndex = 11;
             this.lbl_satir.Text = "Satır";
             // 
             // txt_sutun
             // 
-            this.txt_sutun.Location = new System.Drawing.Point(64, 41);
+            this.txt_sutun.Location = new System.Drawing.Point(48, 33);
+            this.txt_sutun.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txt_sutun.Multiline = true;
             this.txt_sutun.Name = "txt_sutun";
-            this.txt_sutun.Size = new System.Drawing.Size(49, 32);
+            this.txt_sutun.Size = new System.Drawing.Size(38, 27);
             this.txt_sutun.TabIndex = 10;
+            this.txt_sutun.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_sutun_KeyPress);
             // 
             // txt_satir
             // 
-            this.txt_satir.Location = new System.Drawing.Point(9, 41);
+            this.txt_satir.Location = new System.Drawing.Point(7, 33);
+            this.txt_satir.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txt_satir.Multiline = true;
             this.txt_satir.Name = "txt_satir";
-            this.txt_satir.Size = new System.Drawing.Size(49, 32);
+            this.txt_satir.Size = new System.Drawing.Size(38, 27);
             this.txt_satir.TabIndex = 9;
+            this.txt_satir.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt_satir_KeyPress);
             // 
             // btn_olustur
             // 
-            this.btn_olustur.Location = new System.Drawing.Point(271, 23);
+            this.btn_olustur.Location = new System.Drawing.Point(203, 19);
+            this.btn_olustur.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btn_olustur.Name = "btn_olustur";
-            this.btn_olustur.Size = new System.Drawing.Size(73, 50);
+            this.btn_olustur.Size = new System.Drawing.Size(55, 41);
             this.btn_olustur.TabIndex = 8;
             this.btn_olustur.Text = "Olustur";
             this.btn_olustur.UseVisualStyleBackColor = true;
@@ -118,9 +127,11 @@
             this.grb_baslangic.Controls.Add(this.lbl_satir);
             this.grb_baslangic.Controls.Add(this.lbl_sutun);
             this.grb_baslangic.Controls.Add(this.btn_olustur);
-            this.grb_baslangic.Location = new System.Drawing.Point(3, 0);
+            this.grb_baslangic.Location = new System.Drawing.Point(2, 0);
+            this.grb_baslangic.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.grb_baslangic.Name = "grb_baslangic";
-            this.grb_baslangic.Size = new System.Drawing.Size(350, 96);
+            this.grb_baslangic.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grb_baslangic.Size = new System.Drawing.Size(262, 78);
             this.grb_baslangic.TabIndex = 16;
             this.grb_baslangic.TabStop = false;
             this.grb_baslangic.Text = "Başlangıç";
@@ -128,9 +139,10 @@
             // chk_rota
             // 
             this.chk_rota.AutoSize = true;
-            this.chk_rota.Location = new System.Drawing.Point(117, 72);
+            this.chk_rota.Location = new System.Drawing.Point(88, 58);
+            this.chk_rota.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chk_rota.Name = "chk_rota";
-            this.chk_rota.Size = new System.Drawing.Size(148, 21);
+            this.chk_rota.Size = new System.Drawing.Size(115, 17);
             this.chk_rota.TabIndex = 15;
             this.chk_rota.Text = "Sadece rota kullan";
             this.chk_rota.UseVisualStyleBackColor = true;
@@ -138,9 +150,10 @@
             // rd_random
             // 
             this.rd_random.AutoSize = true;
-            this.rd_random.Location = new System.Drawing.Point(119, 47);
+            this.rd_random.Location = new System.Drawing.Point(89, 38);
+            this.rd_random.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rd_random.Name = "rd_random";
-            this.rd_random.Size = new System.Drawing.Size(132, 21);
+            this.rd_random.Size = new System.Drawing.Size(102, 17);
             this.rd_random.TabIndex = 14;
             this.rd_random.TabStop = true;
             this.rd_random.Text = "Random atansın";
@@ -149,9 +162,10 @@
             // rd_el_ile
             // 
             this.rd_el_ile.AutoSize = true;
-            this.rd_el_ile.Location = new System.Drawing.Point(119, 23);
+            this.rd_el_ile.Location = new System.Drawing.Point(89, 19);
+            this.rd_el_ile.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.rd_el_ile.Name = "rd_el_ile";
-            this.rd_el_ile.Size = new System.Drawing.Size(140, 21);
+            this.rd_el_ile.Size = new System.Drawing.Size(105, 17);
             this.rd_el_ile.TabIndex = 13;
             this.rd_el_ile.TabStop = true;
             this.rd_el_ile.Text = "Değerleri el ile gir";
@@ -160,22 +174,24 @@
             // lbl_kapsamalar
             // 
             this.lbl_kapsamalar.AutoSize = true;
-            this.lbl_kapsamalar.Location = new System.Drawing.Point(521, 49);
+            this.lbl_kapsamalar.Location = new System.Drawing.Point(391, 40);
+            this.lbl_kapsamalar.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_kapsamalar.Name = "lbl_kapsamalar";
-            this.lbl_kapsamalar.Size = new System.Drawing.Size(99, 17);
+            this.lbl_kapsamalar.Size = new System.Drawing.Size(74, 13);
             this.lbl_kapsamalar.TabIndex = 17;
             this.lbl_kapsamalar.Text = "Kapsamalar = ";
             // 
             // AnaForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1109, 700);
+            this.ClientSize = new System.Drawing.Size(832, 569);
             this.Controls.Add(this.lbl_kapsamalar);
             this.Controls.Add(this.grb_baslangic);
             this.Controls.Add(this.btn_ilerle);
             this.Controls.Add(this.btn_islem_basla);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "AnaForm";
             this.Text = "AnaForm";
             this.Load += new System.EventHandler(this.AnaForm_Load);

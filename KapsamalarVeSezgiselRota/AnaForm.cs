@@ -702,6 +702,26 @@ namespace KapsamalarVeSezgiselRota
 
         /*-------------------------- Eventler --------------------------*/
 
+        /*Satir textbox'una sayi harici deger girilmesi onleniyor.*/
+        private void txt_satir_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            int basilantus = Convert.ToInt32(e.KeyChar);
+            if (!(basilantus >= 48 && basilantus <= 57 || basilantus == 8) || basilantus == 32)
+            {
+                e.Handled = true;
+            }
+        }
+
+        /*Sutun textbox'una sayi harici deger girilmesi onleniyor.*/
+        private void txt_sutun_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            int basilantus = Convert.ToInt32(e.KeyChar);
+            if (!(basilantus >= 48 && basilantus <= 57 || basilantus == 8) || basilantus == 32)
+            {
+                e.Handled = true;
+            }
+        }
+
         private void btn_olustur_Click(object sender, EventArgs e)
         {
 
@@ -764,5 +784,7 @@ namespace KapsamalarVeSezgiselRota
             }
 
         }
+
+
     }
 }
