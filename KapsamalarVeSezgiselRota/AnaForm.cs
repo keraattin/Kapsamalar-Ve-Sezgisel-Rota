@@ -588,7 +588,7 @@ namespace KapsamalarVeSezgiselRota
                     }
                     else
                     {
-                        bulunan_sifir_sayisi++;
+                        bulunan_sifir_sayisi++; //Sifir sayisi sayiliyor.
                     }
                 }
                 if(bulunan_sifir_sayisi == sutun_sayisi)//Sutun sayisi kadar 0 varsa o satir tamamen 0 dır.
@@ -619,7 +619,7 @@ namespace KapsamalarVeSezgiselRota
                     }
                     else
                     {
-                        bulunan_sifir_sayisi++;
+                        bulunan_sifir_sayisi++; //Sifir sayisi sayiliyor.
                     }
                 }
                 if(bulunan_sifir_sayisi == satir_sayisi)
