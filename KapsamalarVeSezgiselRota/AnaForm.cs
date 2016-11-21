@@ -622,7 +622,7 @@ namespace KapsamalarVeSezgiselRota
                         bulunan_sifir_sayisi++; //Sifir sayisi sayiliyor.
                     }
                 }
-                if(bulunan_sifir_sayisi == satir_sayisi)
+                if(bulunan_sifir_sayisi == satir_sayisi)//Satir sayisi kadar 0 varsa o sutun tamamen 0 dır.
                 {
                     string silinecek_sutun_adi = matris.Columns[i].Name; //Silinecek sutunun adi bulunuyor.
                     matris.Columns.Remove(silinecek_sutun_adi); //Sutun siliniyor.
