@@ -310,18 +310,33 @@ namespace KapsamalarVeSezgiselRota
                 }
             }
 
-            string sutun_adi = matris.Columns[mutlak_sutun].Name; //Mutlak sutunun adi bulunuyor.
 
             DataGridViewRow satir_adi = matris.Rows[mutlak_satir]; //Silinecek satirin bilgileri aliniyor.
 
-            if(matris == matris2)
+            if (matris == matris2)
             {
                 lbl_kapsamalar.Text += satir_adi.HeaderCell.Value + " "; //Kapsamalar yaziliyor.
                 islem_sayisi++; //Islem gerceklestigi icin islem sayisi 1 arttiriliyor.
-                rtb.Text += "\n" + islem_sayisi + " => "+ satir_adi.HeaderCell.Value +" Mutlak satir olarak bulundu ve "+ satir_adi.HeaderCell.Value + " satiri ve "+sutun_adi+" sutun silindi.\n";
+                rtb.Text += "\n" + islem_sayisi + " => " + satir_adi.HeaderCell.Value + " Mutlak satir olarak bulundu ve " + satir_adi.HeaderCell.Value + " satiri ve ";
             }
 
-            matris.Columns.Remove(sutun_adi); //Mutlak sutun siliniyor.
+            /*Mutlak satir icerisinde bulunan 1 degerine sahip sutunlarin silinmesi.*/
+            for (int i = 0; i < matris.Columns.Count-1; i++)
+            {
+                if (Convert.ToInt32(matris.Rows[mutlak_satir].Cells[i].Value) == 1)
+                {
+                    string silinecek_sutun_adi = matris.Columns[i].Name; //Silinecek satirin bilgileri aliniyor.
+                    if(matris == matris2)
+                    {
+                        rtb.Text += " " + silinecek_sutun_adi + " , ";
+                    }
+                    matris.Columns.Remove(silinecek_sutun_adi); //Bulunan sutun siliniyor.
+                    i = i - 1; //i degeri kaldığı yerden devam etmesi icin 1 eksiltiliyor.
+                }
+            }
+
+            if(matris==matris2)
+                rtb.Text += "Sutunlari silindi.";
             matris.Rows.RemoveAt(mutlak_satir); //Mutlak satir siliniyor.
 
             return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
@@ -556,19 +571,74 @@ namespace KapsamalarVeSezgiselRota
             return 0; //Kapsanan sutun bulunamadi.
         }
 
+        /*Hic 1 degeri olmayan satir varsa siliniyor.*/
+        public void degersiz_satir_varsa_sil(DataGridView matris)
+        {
+            int satir_sayisi = matris.Rows.Count - 1;
+            int sutun_sayisi = matris.Rows.Count - 1;
+            int bulunan_sifir_sayisi = 0;
+
+            for (int i = 0; i < satir_sayisi; i++)
+            {
+                for (int j = 0; j < sutun_sayisi; j++)
+                {
+                    if(Convert.ToInt32(matris.Rows[i].Cells[j].Value)!=0) //0 dan farkli bir deger varmi kontrol ediliyor.
+                    {
+                        break; //0 dan farkli bir deger bulunursa , bulunan satiri atlıyor.
+                    }
+                    else
+                    {
+                        bulunan_sifir_sayisi++; //Sifir sayisi sayiliyor.
+                    }
+                }
+                if(bulunan_sifir_sayisi == sutun_sayisi)//Sutun sayisi kadar 0 varsa o satir tamamen 0 dır.
+                {
+                    DataGridViewRow silinecek_satir = matris.Rows[i]; //Silinecek satirin adi bulunuyor.
+                    matris.Rows.Remove(silinecek_satir); //Satir siliniyor.
+                    satir_sayisi--; //1 satir silindigi icin satir sayisi 1 azaltiliyor.
+                    bulunan_sifir_sayisi = 0; //Degiskenin degeri bir sonraki satirlarda kullanılmak icin sifirlaniyor.
+                }
+                bulunan_sifir_sayisi = 0; //Degiskenin degeri bir sonraki satirlarda kullanılmak icin sifirlaniyor.
+            }
+        }
+
+        /*Hic 1 degeri olmayan sutun varsa siliniyor.*/
+        public void degersiz_sutun_varsa_sil(DataGridView matris)
+        {
+            int satir_sayisi = matris.Rows.Count - 1;
+            int sutun_sayisi = matris.Columns.Count - 1;
+            int bulunan_sifir_sayisi = 0;
+
+            for (int i = 0; i < sutun_sayisi; i++)
+            {
+                for (int j = 0; j < satir_sayisi; j++)
+                {
+                    if(Convert.ToInt32(matris.Rows[j].Cells[i].Value)!=0)//0 dan farkli deger varmi kontrol ediliyor.
+                    {
+                        break; //0 dan farkli bir deger bulunursa , bulunan sutunu atlıyor.
+                    }
+                    else
+                    {
+                        bulunan_sifir_sayisi++; //Sifir sayisi sayiliyor.
+                    }
+                }
+                if(bulunan_sifir_sayisi == satir_sayisi)//Satir sayisi kadar 0 varsa o sutun tamamen 0 dır.
+                {
+                    string silinecek_sutun_adi = matris.Columns[i].Name; //Silinecek sutunun adi bulunuyor.
+                    matris.Columns.Remove(silinecek_sutun_adi); //Sutun siliniyor.
+                    sutun_sayisi--; //1 sutun silindigi icin sutun sayisi 1 azaltiliyor.
+                    bulunan_sifir_sayisi = 0; //Degiskenin degeri bir sonraki satirlarda kullanılmak icin sifirlaniyor.
+                }
+                bulunan_sifir_sayisi = 0; //Degiskenin degeri bir sonraki satirlarda kullanılmak icin sifirlaniyor.
+            }
+        }
+
         /*Mutlak sutun , Satir kapsamasi , Sutun kapsamasi , Rota algoritmasi islemlerinin yapilmasi.*/
         public int islem_yap(DataGridView matris)
         {
-
-            /*Hic deger kalmamis ise o sutunu siliyor.*/
-            for (int i = 0; i < matris.Columns.Count - 1; i++)
-            {
-                if (Convert.ToInt32(matris.Rows[matris.Rows.Count - 1].Cells[i].Value) == 0)
-                {
-                    string sutun_adi = matris.Columns[i].Name; //Degeri 0 olan sutunun adi bulunuyor.
-                    matris.Columns.Remove(sutun_adi); //Sutun degeri 0 oldugu icin sutun siliniyor.
-                }
-            }
+            /*Oncelikle degeri 0 olan satir veya sutun varmi diye bakılıyor ve varsa siliniyor.*/
+            degersiz_satir_varsa_sil(matris);
+            degersiz_sutun_varsa_sil(matris);
 
             if ((matris.Rows.Count-1) < 1 || (matris.Columns.Count-1) < 1) //Islemler bitmismi kontrol ediliyor.
             {
