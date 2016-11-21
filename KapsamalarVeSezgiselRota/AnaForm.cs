@@ -574,32 +574,33 @@ namespace KapsamalarVeSezgiselRota
         public void degersiz_satir_varsa_sil(DataGridView matris)
         {
             int satir_sayisi = matris.Rows.Count - 1;
-            int sutun_sayisi = matris.Rows.Count - 1;
+            int sutun_sayisi = matris.Columns.Count - 1;
             int bulunan_sifir_sayisi = 0;
 
             for (int i = 0; i < satir_sayisi; i++)
             {
-                for (int j = 0; j < sutun_sayisi; j++)
-                {
-                    if (Convert.ToInt32(matris.Rows[i].Cells[j].Value) != 0) //0 dan farkli bir deger varmi kontrol ediliyor.
-                    {
-                        break; //0 dan farkli bir deger bulunursa , bulunan satiri atlıyor.
-                    }
-                    else
-                    {
-                        bulunan_sifir_sayisi++; //Sifir sayisi sayiliyor.
-                    }
-                }
-                if (bulunan_sifir_sayisi == sutun_sayisi)//Sutun sayisi kadar 0 varsa o satir tamamen 0 dır.
-                {
-                    DataGridViewRow silinecek_satir = matris.Rows[i]; //Silinecek satirin adi bulunuyor.
-                    matris.Rows.Remove(silinecek_satir); //Satir siliniyor.
-                    satir_sayisi--; //1 satir silindigi icin satir sayisi 1 azaltiliyor.
-                    i = i - 1; //i degeri kaldığı yerden devam etmesi icin 1 eksiltiliyor.
-                    bulunan_sifir_sayisi = 0; //Degiskenin degeri bir sonraki satirlarda kullanılmak icin sifirlaniyor.
-                }
-                bulunan_sifir_sayisi = 0; //Degiskenin degeri bir sonraki satirlarda kullanılmak icin sifirlaniyor.
+               for (int j = 0; j < sutun_sayisi; j++)
+               {
+                  if (Convert.ToInt32(matris.Rows[i].Cells[j].Value) != 0) //0 dan farkli bir deger varmi kontrol ediliyor.
+                  {
+                      break; //0 dan farkli bir deger bulunursa , bulunan satiri atlıyor.
+                  }
+                  else
+                  {
+                      bulunan_sifir_sayisi++; //Sifir sayisi sayiliyor.
+                  }
+               }
+               if (bulunan_sifir_sayisi == sutun_sayisi)//Sutun sayisi kadar 0 varsa o satir tamamen 0 dır.
+               {
+                   DataGridViewRow silinecek_satir = matris.Rows[i]; //Silinecek satirin adi bulunuyor.
+                   matris.Rows.Remove(silinecek_satir); //Satir siliniyor.
+                   satir_sayisi--; //1 satir silindigi icin satir sayisi 1 azaltiliyor.
+                   i = i - 1; //i degeri kaldığı yerden devam etmesi icin 1 eksiltiliyor.
+                   bulunan_sifir_sayisi = 0; //Degiskenin degeri bir sonraki satirlarda kullanılmak icin sifirlaniyor.
+               }
+               bulunan_sifir_sayisi = 0; //Degiskenin degeri bir sonraki satirlarda kullanılmak icin sifirlaniyor.
             }
+           
         }
 
         /*Hic 1 degeri olmayan sutun varsa siliniyor.*/
@@ -637,10 +638,6 @@ namespace KapsamalarVeSezgiselRota
         /*Mutlak sutun , Satir kapsamasi , Sutun kapsamasi , Rota algoritmasi islemlerinin yapilmasi.*/
         public int islem_yap(DataGridView matris)
         {
-            /*Ilk once hic degeri olmayan satir ve sutunlar kontrol ediliyor.*/
-            degersiz_satir_varsa_sil(matris);
-            degersiz_sutun_varsa_sil(matris);
-
             if ((matris.Rows.Count-1) < 1 || (matris.Columns.Count-1) < 1) //Islemler bitmismi kontrol ediliyor.
             {
                if(matris == matris2) rtb.Text += "\n\n ISLEM SONLANDI \n\n";
@@ -648,7 +645,11 @@ namespace KapsamalarVeSezgiselRota
             }
             else if(chk_rota.Checked == true) //Sadece sezgisel rota algoritmasi ile indirgeme yapiliyor.
             {
-                if(mutlak_satir_sutun_bul_ve_sil(matris)==0)
+                /*Ilk once hic degeri olmayan satir ve sutunlar kontrol ediliyor.*/
+                degersiz_satir_varsa_sil(matris);
+                degersiz_sutun_varsa_sil(matris);
+
+                if (mutlak_satir_sutun_bul_ve_sil(matris)==0)
                 {
                     sadece_sutun_agirlik_hesapla(matris);
                     //sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris1);
@@ -665,6 +666,10 @@ namespace KapsamalarVeSezgiselRota
             }
             else
             {
+                /*Ilk once hic degeri olmayan satir ve sutunlar kontrol ediliyor.*/
+                degersiz_satir_varsa_sil(matris);
+                degersiz_sutun_varsa_sil(matris);
+
                 if (mutlak_satir_sutun_bul_ve_sil(matris) == 0)
                 {
                    if(matris == matris2) rtb.Text += "\nMutlak sutun bulunamadi ";
