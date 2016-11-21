@@ -335,8 +335,12 @@ namespace KapsamalarVeSezgiselRota
                 }
             }
 
+<<<<<<< HEAD
             if(matris==matris2)
                 rtb.Text += "Sutunlari silindi.";
+=======
+            rtb.Text += "Sutunlari silindi.";
+>>>>>>> e5bc368d5b76828b7e97d2730e28d79147a21e2c
             matris.Rows.RemoveAt(mutlak_satir); //Mutlak satir siliniyor.
 
             return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
