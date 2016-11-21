@@ -595,6 +595,7 @@ namespace KapsamalarVeSezgiselRota
                     DataGridViewRow silinecek_satir = matris.Rows[i]; //Silinecek satirin adi bulunuyor.
                     matris.Rows.Remove(silinecek_satir); //Satir siliniyor.
                     satir_sayisi--; //1 satir silindigi icin satir sayisi 1 azaltiliyor.
+                    i = i - 1; //i degeri kaldığı yerden devam etmesi icin 1 eksiltiliyor.
                     bulunan_sifir_sayisi = 0; //Degiskenin degeri bir sonraki satirlarda kullanılmak icin sifirlaniyor.
                 }
                 bulunan_sifir_sayisi = 0; //Degiskenin degeri bir sonraki satirlarda kullanılmak icin sifirlaniyor.
@@ -626,6 +627,7 @@ namespace KapsamalarVeSezgiselRota
                     string silinecek_sutun_adi = matris.Columns[i].Name; //Silinecek sutunun adi bulunuyor.
                     matris.Columns.Remove(silinecek_sutun_adi); //Sutun siliniyor.
                     sutun_sayisi--; //1 sutun silindigi icin sutun sayisi 1 azaltiliyor.
+                    i = i - 1; //i degeri kaldığı yerden devam etmesi icin 1 eksiltiliyor.
                     bulunan_sifir_sayisi = 0; //Degiskenin degeri bir sonraki satirlarda kullanılmak icin sifirlaniyor.
                 }
                 bulunan_sifir_sayisi = 0; //Degiskenin degeri bir sonraki satirlarda kullanılmak icin sifirlaniyor.
@@ -734,7 +736,7 @@ namespace KapsamalarVeSezgiselRota
             sadece_sutun_agirlik_hesapla(matris2); //Satir sutun agirliklari hesaplandi.
 
             /*Yapilan islemlerin yazilacagi RichTextBox tanimlaniyor.*/
-            rtb.Size = new Size ( 600 , 400 ); //Boyutu belirlendi.
+            rtb.Size = new Size ( 550 , 350 ); //Boyutu belirlendi.
             rtb.Top = (matris1.Height) + 100; //Ustten ne kadar asagida olacagi belirlendi.
             rtb.Left = 20; //Soldan ne kadar sagda olacagi belirlendi
             rtb.Text += islem_sayisi.ToString() +" => Islemlere baslandi \n"; //Baslangic yazisi yazildi.
