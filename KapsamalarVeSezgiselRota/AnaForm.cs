@@ -791,6 +791,15 @@ namespace KapsamalarVeSezgiselRota
 
         }
 
-
+        /*Programi yeniden calistirmak icin.*/
+        private void btn_yeniden_basla_Click(object sender, EventArgs e)
+        {
+            /*Yeniden baslatmak istediginize eminmisiniz secenegi sunuluyor.*/
+            DialogResult sor = MessageBox.Show("Programi yeniden baslatmak istediginize eminmisiniz ?", "Yeniden baslat", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (sor == DialogResult.Yes)
+            {
+                Application.Restart(); //Program yeniden baslatiliyor.
+            }
+        }
     }
 }
