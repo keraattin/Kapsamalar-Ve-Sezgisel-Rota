@@ -680,9 +680,9 @@ namespace KapsamalarVeSezgiselRota
                         {
                            if(matris == matris2) rtb.Text += " , Kapsanan sutun bulunamadi ";
                             sadece_sutun_agirlik_hesapla(matris);
-                            //sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris1);
                             sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris); //Rota algoritmasinin calisabilmesi icin satir agirliklari hesaplanmali.
                             rota_algoritmasi_ile_sil(matris); //Hicbir fonksiyon calismadiysa rota algoritmasina gore en dusuk agirligi olan satir siliniyor.
+                            sadece_sutun_agirlik_hesapla(matris); //Bir sonraki islemde hata alamamak icin , islemden sonra agirliklar tekrar hesaplaniyor.
                             agirliklari_temizle(matris);
                       
                             return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
@@ -777,6 +777,7 @@ namespace KapsamalarVeSezgiselRota
             sadece_sutun_agirlik_hesapla(matris3); //Matris3 deki agirliklar hesaplaniyor
 
             islem_yap(matris2); //Matris2'nin onden gidebilmesi icin islemler onceden basliyor.
+            sadece_sutun_agirlik_hesapla(matris2); //Bir sonraki islemde hata alamamak icin , islemden sonra agirliklar tekrar hesaplaniyor.
         }
 
         private void btn_ilerle_Click(object sender, EventArgs e)
