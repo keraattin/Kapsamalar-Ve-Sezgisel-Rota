@@ -652,10 +652,10 @@ namespace KapsamalarVeSezgiselRota
                 if (mutlak_satir_sutun_bul_ve_sil(matris)==0)
                 {
                     sadece_sutun_agirlik_hesapla(matris);
-                    //sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris1);
                     sadece_agirligi_en_dusuk_sutunlarin_satir_agirligini_hesapla(matris); //Rota algoritmasinin calisabilmesi icin satir agirliklari hesaplanmali.
                     rota_algoritmasi_ile_sil(matris);
                     agirliklari_temizle(matris); //Fonksyion calistiktan sonra diger agirliklarin gozukmesi icin eski agirliklar siliniyor.
+                    sadece_sutun_agirlik_hesapla(matris); //Bir sonraki islemde hata alamamak icin , islemden sonra agirliklar tekrar hesaplaniyor.
                     return 1; //Islem gerceklestigi icin 1 degeri geri donduruyor.
                 }
                 else
