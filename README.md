@@ -22,12 +22,12 @@ kapsamaya yazilir.Bu islemler bos matris elde edilinceye kadar devam eder.
 
 ## **Minimum Kapsamalarin Adimlari**
 
-- **1 - ** Matrisin sutunlarindaki 1'ler sayilir ve o sütunun agirligi olarak altina yazilir.
-- **2 - ** Agirlik degeri 1 olan sutun varmi diye bakilir.Eger bulunur ise bulunan sutun hangi
+- __1 - __ Matrisin sutunlarindaki 1'ler sayilir ve o sütunun agirligi olarak altina yazilir.
+- __2 - __ Agirlik degeri 1 olan sutun varmi diye bakilir.Eger bulunur ise bulunan sutun hangi
 satirda 1 degerini almis bulunur ve bulunan satir mutlak satir olarak isaretlenir. Mutlak satir 
 bastan sonra taranarak icerisinde 1 bulunan hücrelerin ait oldugu sutunlar tablodan silinir ,
 mutlak satir olarak isaretlenen satir tablodan silinir ve mutlak satir kapsamalara yazilir.
-- **3 - ** Eger agirlik degeri 1 olan sutun bulunamaz ise yani mutlak satir bulunamaz ise
+- __3 - __ Eger agirlik degeri 1 olan sutun bulunamaz ise yani mutlak satir bulunamaz ise
 satir kapsamalarina bakilir. Satir kapsamalarinda her satir birbiri ile ikiser ikiser karsilastirilir.
 Bir satir diger satir ile ayni degerlere sahip ve baska degerlere de sahip ise bu satir diger satiri
 kapsar ve diger satir silinir.Bu islemler yapildiktan sonra tablo güncellenir ve tekrar mutlak satir aranir.
